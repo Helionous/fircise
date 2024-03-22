@@ -1,4 +1,7 @@
+<<<<<<< HEAD
 
+=======
+>>>>>>> featureHenry
 import { Button, Center, FormControl, HStack, Input, Select } from "native-base"
 import { useState } from "react"
 import { Text, View } from "react-native"
@@ -47,6 +50,7 @@ export const AlertUser = () => {
                 <Input />
             </FormControl>
 
+<<<<<<< HEAD
 
 import { Text, View } from "react-native"
 
@@ -54,6 +58,8 @@ export const AlertUser = () => {
     return (
         <View>
             <Text>AlertUser</Text>
+=======
+>>>>>>> featureHenry
         </View>
     )
 }

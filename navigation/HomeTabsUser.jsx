@@ -1,5 +1,4 @@
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs"
-
 import { Feather } from '@expo/vector-icons'
 import { Ionicons } from '@expo/vector-icons'
 import { HomeUser } from "../screens/home"
@@ -74,26 +73,29 @@ export const HomeTabsUser = ({ navigation }) => {
                 name="ProfileUserReport"
                 component={ProfileUserReport}
                 options={{
+                    title: 'Perfil',
                     tabBarLabel: 'Mi Perfil',
                     tabBarIcon: ({ color, size }) => (
                         <Feather name="user" size={size} color={color} />
                     ),
+                    headerLeft: () => (
+                        <IconButton
+                            variant="ghost"
+                            _icon={{
+                                as: Ionicons,
+                                name: "arrow-back",
+                            }} ml={2} />
+                    ),
+                    headerRight: () => (
+                        <IconButton
+                            onPress={() => navigation.navigate('Login')}
+                            variant="ghost"
+                            _icon={{
+                                as: Feather,
+                                name: "log-out",
+                            }} mr={2} />
+                    )
                 }} />
         </Tab.Navigator >
-
-import { HomeUser } from "../screens/home"
-import { AlertUser } from "../screens/alerts"
-import { ProfileUserReport } from "../screens/users"
-
-const Tab = createBottomTabNavigator()
-
-export const HomeTabsUser = () => {
-    return (
-        <Tab.Navigator>
-            <Tab.Screen name="HomeUser" component={HomeUser} />
-            <Tab.Screen name="AlertUser" component={AlertUser} />
-            <Tab.Screen name="ProfileUserReport" component={ProfileUserReport} />
-        </Tab.Navigator>
-
     )
 }

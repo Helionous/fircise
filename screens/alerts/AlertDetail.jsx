@@ -1,4 +1,3 @@
-
 import { Box, Center, Heading, Text } from "native-base"
 import { ScrollView } from "react-native"
 
@@ -25,12 +24,5 @@ export const AlertDetail = () => {
                 <Text fontSize="lg">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quaerat ipsam, dolores assumenda sunt temporibus culpa quis magni accusantium ea tempore cupiditate iusto doloribus corporis officiis non obcaecati? Suscipit, voluptatibus quod.</Text>
             </Box>
         </ScrollView>
-
-export const AlertDetail = () => {
-    return (
-        <View>
-            <Text>AlertDetail</Text>
-        </View>
-
     )
 }

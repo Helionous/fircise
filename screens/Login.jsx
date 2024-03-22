@@ -1,5 +1,4 @@
 import React from "react"
-
 import { Text, View, StyleSheet } from "react-native"
 import { Box, Input, Button, Link, Center } from "native-base"
 
@@ -9,8 +8,12 @@ export const Login = ({ navigation }) => {
         navigation.navigate('HomeTabsUser')
     }
 
+    const navigateToRegisterUser = () => {
+        navigation.navigate('RegisterUser')
+    }
+
     return (
-        <View>            
+        <View>
             <Center style={styles.header}>
                 <Text style={styles.title}>FIRCISE</Text>
                 <Text style={styles.subTitle}>Inicia Sessión</Text>
@@ -19,22 +22,6 @@ export const Login = ({ navigation }) => {
                 <Input mx="6" mb="3" placeholder="Correo Electronico" />
                 <Input mx="6" mb="3" placeholder="********" />
                 <Button mx="6" onPress={navigateToHomeTabsGuest}>Iniciar Sessión</Button>
-
-import { Text, View } from "react-native"
-import { Box, Input, Button, Link } from "native-base"
-
-export const Login = () => {
-    return (
-        <View>
-            <View>
-                <Text>FIRCISE</Text>
-                <Text>Inicia Sessión</Text>
-            </View>
-            <Box>
-                <Input mx="6" mb="3" placeholder="Correo Electronico" />
-                <Input mx="6" mb="3" placeholder="********" />
-                <Button mx="6" onPress={() => console.log("hello world")}>Click Me</Button>
-
             </Box>
             <View style={{
                 display: "flex",
@@ -42,14 +29,13 @@ export const Login = () => {
                 justifyContent: "center",
                 marginTop: 10
             }}>
-                <Link href="https://nativebase.io">
+                <Link onPress={navigateToRegisterUser}>
                     No tiene cuenta Registrese
                 </Link>
             </View>
         </View>
     )
 }
-
 
 const styles = StyleSheet.create({
     header: {
