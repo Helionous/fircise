@@ -4,6 +4,11 @@ export const HomeGuest = () => {
     return (
         <View>
 
+            
+        </View>
+    )
+}
+
         </View>
     )
 }
