@@ -1,14 +1,36 @@
 import { Box, Center, Heading, Text } from "native-base"
-import { ScrollView } from "react-native"
+import { useState } from "react"
+import { ScrollView, StyleSheet } from "react-native"
+import MapView, { Marker } from "react-native-maps"
 
 export const AlertDetail = () => {
+    const [origin, setOrigin] = useState({
+        latitude: -13.617373,
+        longitude: -72.868008,
+    })
+
     return (
         <ScrollView style={{
             marginRight: 10,
             marginLeft: 10,
         }}>
-            <Center mt={20} mb={20}>
-                <Text>Mapa de google</Text>
+            <Center mt={2} mb={2}>
+                <MapView
+                    initialRegion={{
+                        latitude: origin.latitude,
+                        longitude: origin.longitude,
+                        latitudeDelta: 0.0922,
+                        longitudeDelta: 0.0421,
+                    }}
+                    style={styles.map} >
+                    <Marker
+                        title="Universidad"
+                        description={`Lat: ${origin.latitude} Lng: ${origin.longitude}`}
+                        draggable={true}
+                        coordinate={origin}
+                        onDragEnd={(e) => setOrigin(e.nativeEvent.coordinate)}
+                    />
+                </MapView>
             </Center>
             <Text>15-03-2024</Text>
             <Box mt={4}>
@@ -26,3 +48,10 @@ export const AlertDetail = () => {
         </ScrollView>
     )
 }
+
+const styles = StyleSheet.create({
+    map: {
+        width: '100%',
+        height: 200,
+    },
+})

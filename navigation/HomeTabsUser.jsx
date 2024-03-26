@@ -5,10 +5,22 @@ import { HomeUser } from "../screens/home"
 import { AlertUser } from "../screens/alerts"
 import { ProfileUserReport } from "../screens/users"
 import { Avatar, HStack, IconButton, Input } from "native-base"
+import { auth } from "../config/firebase"
+import { signOut } from "firebase/auth"
 
 const Tab = createBottomTabNavigator()
 
 export const HomeTabsUser = ({ navigation }) => {
+
+    const signOutLocal = async () => {
+        try {
+            await signOut(auth);
+            console.log('User signed out!');
+        } catch (error) {
+            console.error('Error signing out: ', error);
+        }
+    }
+
     return (
         <Tab.Navigator>
             <Tab.Screen
@@ -73,10 +85,28 @@ export const HomeTabsUser = ({ navigation }) => {
                 name="ProfileUserReport"
                 component={ProfileUserReport}
                 options={{
+                    title: 'Perfil',
                     tabBarLabel: 'Mi Perfil',
                     tabBarIcon: ({ color, size }) => (
                         <Feather name="user" size={size} color={color} />
                     ),
+                    headerLeft: () => (
+                        <IconButton
+                            variant="ghost"
+                            _icon={{
+                                as: Ionicons,
+                                name: "arrow-back",
+                            }} ml={2} />
+                    ),
+                    headerRight: () => (
+                        <IconButton
+                            onPress={signOutLocal}
+                            variant="ghost"
+                            _icon={{
+                                as: Feather,
+                                name: "log-out",
+                            }} mr={2} />
+                    )
                 }} />
         </Tab.Navigator >
     )
