@@ -28,6 +28,7 @@ export const AuthenticatedUserProvider = ({ children }) => {
 
 function GuestStack() {
     return (
+
         <Stack.Navigator initialRouteName="Login" screenOptions={{ headerShown: false }}>
             <Stack.Screen name="Login" component={Login} options={{ title: '', headerTransparent: true }} />
             <Stack.Screen name="RegisterUser" component={RegisterUser} />
