@@ -1,11 +1,39 @@
 import React from "react"
-import { Text, View, StyleSheet } from "react-native"
-import { Box, Input, Button, Link, Center } from "native-base"
+
+import { Text, View, StyleSheet, Alert } from "react-native"
+import { Input, Button, Link, Center, VStack } from "native-base"
+import { useFormik } from "formik"
+import { signInWithEmailAndPassword } from "firebase/auth"
+import { auth } from "../config/firebase"
 
 export const Login = ({ navigation }) => {
+    const formik = useFormik({
+        initialValues: {
+            email: "",
+            password: "",
+        },
+        onSubmit: (values) => {
+            signInWithEmailAndPassword(auth, values.email, values.password)
+                .then((userCredential) => {
+                    console.log(userCredential)
+                    console.log('Usuario logueado')
+                })
+                .catch((error) => {
+                    Alert.alert('Login error', error.message)
+                })
+        },
+    })
 
     const navigateToHomeTabsGuest = () => {
-        navigation.navigate('HomeTabsUser')
+        navigation.navigate('HomeTabsGuest')
+    }
+
+    const navigateToRegisterUser = () => {
+        navigation.navigate('RegisterUser')
+    }
+
+    const navigateToHome = () => {
+        navigation.navigate('HomeTabsAdmin')
     }
 
     const navigateToRegisterUser = () => {
@@ -18,23 +46,33 @@ export const Login = ({ navigation }) => {
                 <Text style={styles.title}>FIRCISE</Text>
                 <Text style={styles.subTitle}>Inicia Sessión</Text>
             </Center>
-            <Box>
-                <Input mx="6" mb="3" placeholder="Correo Electronico" />
-                <Input mx="6" mb="3" placeholder="********" />
-                <Button mx="6" onPress={navigateToHomeTabsGuest}>Iniciar Sessión</Button>
-            </Box>
-            <View style={{
-                display: "flex",
-                flexDirection: "row",
-                justifyContent: "center",
-                marginTop: 10
-            }}>
-                <Link onPress={navigateToRegisterUser}>
-                    No tiene cuenta Registrese
-                </Link>
-            </View>
+
+            <VStack mx={3} space={3}>
+                <Input
+                    placeholder="Correo Electronico"
+                    onChangeText={formik.handleChange("email")}
+                    value={formik.values.email}
+                />
+                <Input
+                    placeholder="********"
+                    onChangeText={formik.handleChange("password")}
+                    value={formik.values.password}
+                />
+                <Button onPress={formik.handleSubmit}>Iniciar Sessión</Button>
+                <Center>
+                    <Link onPress={navigateToRegisterUser}>
+                        No tiene cuenta Registrese
+                    </Link>
+                </Center>
+                <Center>
+                    <Link onPress={navigateToHomeTabsGuest}>
+                        Acceder modo invitado
+                    </Link>
+                </Center>
+            </VStack>
+
         </View>
-    )
+    );
 }
 
 const styles = StyleSheet.create({
@@ -51,4 +89,5 @@ const styles = StyleSheet.create({
         fontSize: 24,
         marginBottom: 10,
     },
-});
+})
+

@@ -1,5 +1,5 @@
-import { Center, Heading, Text } from "native-base"
-import { View, Image } from "react-native"
+import { Center, Heading, ScrollView, Text } from "native-base"
+import { Image } from "react-native"
 import { useEffect } from "react"
 import { useState } from "react"
 
@@ -19,7 +19,7 @@ export const AlertSentUser = ({ navigation }) => {
     }, [count, navigation])
 
     return (
-        <View style={{ marginTop: 100 }}>
+        <ScrollView style={{ marginTop: 100 }}>
             <Center>
                 <Text mb={2}>Regresando en {count} segundos</Text>
                 <Heading mb={2}>Reporte Enviado</Heading>
@@ -30,6 +30,6 @@ export const AlertSentUser = ({ navigation }) => {
                     Gracias por alertarnos, nuestro equipo ya va en camino
                 </Text>
             </Center>
-        </View>
+        </ScrollView>
     )
 }

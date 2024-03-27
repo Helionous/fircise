@@ -6,13 +6,18 @@ import { Button, Link } from "native-base"
 
 const Tab = createBottomTabNavigator()
 
-export const HomeTabsGuest = ({navigation}) => {
+export const HomeTabsGuest = ({ navigation }) => {
+    const navigateToRegisterUser = () => {
+        navigation.navigate('RegisterUser')
+    }
+
     return (
         <Tab.Navigator>
             <Tab.Screen
                 name="HomeGuestScreen"
                 component={HomeGuest}
                 options={{
+                    title: '',
                     tabBarLabel: 'Inicio',
                     tabBarIcon: ({ color, size }) => (
                         <Feather name="home" size={size} color={color} />
@@ -23,11 +28,10 @@ export const HomeTabsGuest = ({navigation}) => {
                             mr={5}>Iniciar Sessión</Button>
                     ),
                     headerLeft: () => (
-                        <Link ml={5} href="https://nativebase.io">
+                        <Link ml={5} onPress={navigateToRegisterUser}>
                             CREAR CUENTA
                         </Link>
                     ),
-                    title: ''
                 }} />
             <Tab.Screen
                 name="AlertDetail"
