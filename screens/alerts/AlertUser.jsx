@@ -1,9 +1,7 @@
-<<<<<<< HEAD
-import { Center, FormControl, HStack, Input, ScrollView, Select } from "native-base"
-=======
 
+import { Center, FormControl, HStack, Input, ScrollView, Select } from "native-base"
 import { Button, Center, FormControl, HStack, Input, Select } from "native-base"
->>>>>>> 54a62604e8c6f571a170bfb5bddbb4721da8e5ab
+
 import { useState } from "react"
 import { StyleSheet } from "react-native"
 import MapView, { Marker } from "react-native-maps"
@@ -133,18 +131,10 @@ export const AlertUser = () => {
                 <Input />
             </FormControl>
 
-<<<<<<< HEAD
+
+
         </ScrollView>
-=======
 
-import { Text, View } from "react-native"
-
-export const AlertUser = () => {
-    return (
-        <View>
-            <Text>AlertUser</Text>
-        </View>
->>>>>>> 54a62604e8c6f571a170bfb5bddbb4721da8e5ab
     )
 }
 

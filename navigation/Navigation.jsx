@@ -6,6 +6,7 @@ import { onAuthStateChanged } from "firebase/auth"
 import { HomeTabsAdmin } from "./HomeTabsAdmin"
 import { HomeTabsUser } from "./HomeTabsUser"
 import { HomeTabsGuest } from "./HomeTabsGuest"
+
 import { AlertDetail, AlertSentUser } from "../screens/alerts"
 import { Login } from "../screens/Login"
 import { UserProfileEdit } from "../screens/users/UserProfileEdit"
@@ -28,11 +29,11 @@ export const AuthenticatedUserProvider = ({ children }) => {
 
 function GuestStack() {
     return (
-
         <Stack.Navigator initialRouteName="Login" screenOptions={{ headerShown: false }}>
             <Stack.Screen name="Login" component={Login} options={{ title: '', headerTransparent: true }} />
             <Stack.Screen name="RegisterUser" component={RegisterUser} />
             <Stack.Screen name="HomeTabsGuest" component={HomeTabsGuest} />
+
         </Stack.Navigator>
     )
 }
@@ -68,6 +69,7 @@ function AdminStack() {
                     headerShown: true,
                     headerTransparent: false
                 }} />
+
         </Stack.Navigator>
     )
 }

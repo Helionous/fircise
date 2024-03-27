@@ -3,6 +3,7 @@ import { StyleSheet, View } from "react-native"
 import MapView, { Marker } from "react-native-maps"
 
 export const HomeGuest = () => {
+
     const [origin, setOrigin] = useState({
         latitude: -13.617373,
         longitude: -72.868008,
