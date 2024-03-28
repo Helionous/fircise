@@ -1,9 +1,9 @@
 import { Avatar, Button, Center, FormControl, HStack, Input, Text, VStack } from "native-base"
-import { View } from "react-native"
+import { ScrollView } from "react-native"
 
 export const UserProfileEdit = ({ navigation }) => {
     return (
-        <View style={{marginLeft: 10, marginRight: 10}}>
+        <ScrollView style={{marginLeft: 10, marginRight: 10}}>
             <Center>
                 <Avatar
                     bg="green.500"
@@ -33,7 +33,6 @@ export const UserProfileEdit = ({ navigation }) => {
                     <Input />
                 </FormControl>
             </VStack>
-
-        </View>
+        </ScrollView>
     )
 }
