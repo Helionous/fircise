@@ -1,6 +1,10 @@
 import { Avatar, Box, Button, Center, HStack, Heading, ScrollView, Text, VStack } from "native-base"
 import { Entypo } from "@expo/vector-icons"
 import { useAlertStore } from "../../store/alert"
+import { useCallback } from "react"
+import { useFocusEffect } from "@react-navigation/core"
+import { TouchableOpacity } from "react-native"
+import { useUserStore } from "../../store/user"
 import { AuthenticatedUserContext } from "../../navigation/Navigation"
 import { useCallback, useContext } from "react"
 import { useFocusEffect } from "@react-navigation/core"
@@ -9,6 +13,10 @@ import { TouchableOpacity } from "react-native"
 export const ProfileUserReport = ({ navigation }) => {
     const userAlerts = useAlertStore(state => state.userAlerts)
     const getUserAlerts = useAlertStore(state => state.getUserAlerts)
+
+    useFocusEffect(useCallback(() => {
+        getUserAlerts(userAuth.userId)
+        console.log('userAuth', userAuth)
     const { user } = useContext(AuthenticatedUserContext)
 
     useFocusEffect(useCallback(() => {
@@ -29,7 +37,7 @@ export const ProfileUserReport = ({ navigation }) => {
                     source={{
                         uri: "https://avatars.githubusercontent.com/u/111304665?v=4"
                     }} />
-                <Text fontSize="xl" fontWeight="bold">@Henry</Text>
+                <Text fontSize="xl" fontWeight="bold">@{userAuth.nombre}</Text>
                 <HStack space={3} mt={2} mb={2}>
                     <Button bg="secondary.700" onPress={() => console.log("hello world")}>Mis Reportes</Button>
                     <Button bg="muted.500" onPress={() => navigation.navigate('UserProfileEdit')}>Actualizar</Button>
@@ -38,6 +46,7 @@ export const ProfileUserReport = ({ navigation }) => {
             <VStack space={3} ml={5} mr={5}>
                 {
                     userAlerts.map(alert => (
+                        <TouchableOpacity key={alert.id} onPress={navigateToAlertDetail}>
                         <TouchableOpacity onPress={navigateToAlertDetail}>
                             <Box rounded="lg"
                                 overflow="hidden"

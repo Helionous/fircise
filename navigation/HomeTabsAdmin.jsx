@@ -1,15 +1,32 @@
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs"
-import { AdminAlertList } from "../screens/alerts"
+import { AdminAlertList, ValidateAlerts } from "../screens/alerts"
 import { AdminUsersList } from "../screens/users"
+import { HomeUser } from "../screens/home"
+import { Pressable, Text } from "react-native"
 import { HomeAdmin, HomeUser } from "../screens/home"
 import { Pressable, Text, Touchable } from "react-native"
 import { Avatar, HStack, IconButton } from "native-base"
 import { Feather } from "@expo/vector-icons"
 import { Ionicons } from "@expo/vector-icons"
+import { signOut } from "firebase/auth"
+import { auth } from "../config/firebase"
+import { useUserStore } from "../store"
 
 const Tab = createBottomTabNavigator()
 
 export const HomeTabsAdmin = ({ navigation }) => {
+    const userAuth = useUserStore(state => state.userAuth)
+    const setDefaultUserAuth = useUserStore(state => state.setDefaultUserAuth)
+
+    const signOutLocal = async () => {
+        try {            
+            await signOut(auth)            
+            setDefaultUserAuth()
+            console.log('User signed out!')
+        } catch (error) {
+            console.error('Error signing out: ', error)
+        }
+    }
 
     const navigateToProfileUser = () => {
         navigation.navigate('ProfileUserReport')
@@ -27,7 +44,7 @@ export const HomeTabsAdmin = ({ navigation }) => {
                         <Feather name="home" size={size} color={color} />
                     ),
                     headerLeft: () => (
-                        <Text>Bienvenido admin, Henry!</Text>
+                        <Text>Bienvenido admin, {userAuth.nombre}!</Text>
                     ),
                     headerRight: () => (
                         <HStack mr={4}>
@@ -74,6 +91,25 @@ export const HomeTabsAdmin = ({ navigation }) => {
                     tabBarLabel: 'Usuarios',
                     tabBarIcon: ({ color, size }) => (
                         <Feather name="user" size={size} color={color} />
+                    ),
+                    headerRight: () => (
+                        <IconButton
+                            onPress={() => navigation.navigate('Logout')}
+                            variant="ghost"
+                            _icon={{
+                                as: Feather,
+                                name: "log-out",
+                            }} mr={2} />
+                    )
+                }} />
+            <Tab.Screen
+                name="ValidateAlerts"
+                component={ValidateAlerts}
+                options={{
+                    title: 'Validar Alertas',
+                    tabBarLabel: 'Validar',
+                    tabBarIcon: ({ color, size }) => (
+                        <Feather name="check-square" size={size} color={color} />
                     )
                 }} />
         </Tab.Navigator>

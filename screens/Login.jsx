@@ -8,6 +8,8 @@ import { useUserStore } from "../store/user"
 
 export const Login = ({ navigation }) => {
     const setUserAuth = useUserStore(state => state.setUserAuth)
+    const getUserById = useUserStore(state => state.getUserById)
+
 
     const formik = useFormik({
         initialValues: {
@@ -16,6 +18,17 @@ export const Login = ({ navigation }) => {
         },
         onSubmit: (values) => {
             signInWithEmailAndPassword(auth, values.email, values.password)
+                .then(async (userCredential) => {
+                    const user = await getUserById(userCredential.user.uid)
+                    setUserAuth({
+                        userId: user.userId,
+                        nombre: user.nombre,
+                        email: values.email,
+                        rol: user.rol,
+                    })
+                    if (user.rol === 'admin') {
+                        navigateToHome()
+                    }
                 .then((userCredential) => {
                     setUserAuth({
                         userId: userCredential.user.uid,
