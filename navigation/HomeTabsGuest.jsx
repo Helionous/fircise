@@ -1,9 +1,7 @@
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs"
 import { Feather } from '@expo/vector-icons'
 import { HomeUser } from "../screens/home"
-import { AlertDetail } from "../screens/alerts"
-import { Button, Link } from "native-base"
-import { Login } from "../screens/Login"
+import { Button, Link, View } from "native-base"
 
 const Tab = createBottomTabNavigator()
 
@@ -13,15 +11,36 @@ export const HomeTabsGuest = ({ navigation }) => {
     }
 
     return (
-        <Tab.Navigator>
+        <Tab.Navigator screenOptions={{
+            tabBarActiveTintColor: 'tomato',
+            tabBarInactiveTintColor: 'gray',
+            tabBarLabelStyle: {
+                paddingBottom: 10,
+                fontWeight: 'bold',
+                fontSize: 16,
+            },
+            tabBarStyle: {
+                padding: 10,
+                height: 80,
+            }
+        }}>
             <Tab.Screen
                 name="HomeUser"
                 component={HomeUser}
                 options={{
                     title: '',
                     tabBarLabel: 'Inicio',
-                    tabBarIcon: ({ color, size }) => (
-                        <Feather name="home" size={size} color={color} />
+                    tabBarIcon: ({ color, size, focused }) => (
+                        <View style={{
+                            backgroundColor: focused ? 'tomato' : 'transparent',
+                            borderRadius: 5,
+                            paddingLeft: 10,
+                            paddingRight: 10,
+                            paddingTop: 5,
+                            paddingBottom: 5
+                        }}>
+                            <Feather name="home" size={size} color={focused ? 'white' : color} />
+                        </View>
                     ),
                     headerRight: () => (
                         <Button

@@ -1,17 +1,15 @@
 import { useCallback, useState } from "react"
 import { StyleSheet, View } from "react-native"
-import MapView, { Marker } from "react-native-maps"
+import MapView, { Marker, PROVIDER_GOOGLE } from "react-native-maps"
 import { useAlertStore } from "../../store/alert"
 import { useFocusEffect } from "@react-navigation/core"
 import { useUserStore } from "../../store"
-
 
 export const HomeUser = ({ navigation }) => {
     const alerts = useAlertStore(state => state.alerts)
     const fetchAlerts = useAlertStore(state => state.fetchAlerts)
     const setSelectedAlert = useAlertStore(state => state.setSelectedAlert)
     const userAuth = useUserStore(state => state.userAuth)
-
 
     const [origin, setOrigin] = useState({
         latitude: -13.617373,
@@ -23,7 +21,6 @@ export const HomeUser = ({ navigation }) => {
         console.log('auth user:', userAuth)
     }, []))
 
-
     navigateToAlertDetail = (alert) => {
         setSelectedAlert(alert)
         navigation.navigate('AlertDetail')
@@ -32,6 +29,7 @@ export const HomeUser = ({ navigation }) => {
     return (
         <View style={styles.container}>
             <MapView
+                provider={PROVIDER_GOOGLE}
                 initialRegion={{
                     latitude: origin.latitude,
                     longitude: origin.longitude,
@@ -43,7 +41,6 @@ export const HomeUser = ({ navigation }) => {
                     alerts.map(alert => (
                         <Marker
                             key={alert.id}
-
                             coordinate={{
                                 latitude: parseFloat(alert.latitud),
                                 longitude: parseFloat(alert.longitud),

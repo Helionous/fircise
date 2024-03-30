@@ -4,6 +4,7 @@ import { Navigation } from './navigation'
 import { AuthenticatedUserProvider, Navigation } from './navigation'
 import { NativeBaseProvider } from 'native-base'
 import { AuthenticatedUserProvider } from './context'
+import { AuthenticatedUserProvider } from './context'
 
 enableLatestRenderer()
 

@@ -40,11 +40,6 @@ export const RegisterUser = ({ navigation }) => {
         }
     })
 
-
-    const navigateToHomeTabsGuest = () => {
-        navigation.navigate('HomeTabsUser')
-    }
-
     const navigateToLoginUser = () => {
         navigation.navigate('Login')
     }

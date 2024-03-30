@@ -1,8 +1,7 @@
 import { Center, FormControl, HStack, Input, ScrollView, Select, TextArea } from "native-base"
-
 import { useEffect, useState } from "react"
 import { StyleSheet } from "react-native"
-import MapView, { Marker } from "react-native-maps"
+import MapView, { Marker, PROVIDER_GOOGLE } from "react-native-maps"
 import { useFormik } from "formik"
 import { useAlertStore } from "../../store/alert"
 import { useFocusEffect } from "@react-navigation/core"
@@ -16,7 +15,6 @@ export const AlertUser = () => {
 
     const setAlertForm = useAlertStore(state => state.setAlertForm)
     const date = new Date()
-
 
     const initialValues = {
         lugar: "",
@@ -39,49 +37,9 @@ export const AlertUser = () => {
     useEffect(() => {
         setAlertForm(formik.values)
     }, [formik.values])
-        descripcion: "",
-        magnitud: "",
-        estado: ""
-    }
-
-    const formik = useFormik({ initialValues })
-
-    useFocusEffect(useCallback(() => {
-        formik.resetForm({ values: initialValues });
-    }, []))
-
-    useEffect(() => {
-        setAlertForm(formik.values)
-    }, [formik.values])
-
-    const handleOpenDatePicker = () => {
-        setShowDatePicker(true)
-    }
-
-    const handleSelectDate = (event, selectedDate) => {
-        if (selectedDate) {
-            const currentDate = selectedDate || date
-            formik.setFieldValue('fecha', currentDate.toLocaleDateString())
-            setShowDatePicker(false)
-            setDate(currentDate)
-        }
-    }
-
-    const handleOpenTimePicker = () => {
-        setShowTimePicker(true)
-    }
-
-    const handleSelectTime = (event, selectedTime) => {
-        if (selectedTime) {
-            const currentTime = selectedTime || time
-            formik.setFieldValue('hora', currentTime.toLocaleTimeString())
-            setShowTimePicker(false)
-            setTime(currentTime)
-        }
-    }
 
     return (
-        <ScrollView style={{ margin: 10 }}>
+        <ScrollView style={{ backgroundColor: 'white', padding: 10 }}>
             <FormControl>
                 <FormControl.Label>Lugar del Incendio</FormControl.Label>
                 <Input value={formik.values.lugar}
@@ -89,6 +47,7 @@ export const AlertUser = () => {
                 />
                 <Center mt={2} mb={2}>
                     <MapView
+                        provider={PROVIDER_GOOGLE}
                         initialRegion={{
                             latitude: origin.latitude,
                             longitude: origin.longitude,
@@ -120,9 +79,28 @@ export const AlertUser = () => {
                     <Input
                         value={origin.longitude.toString()}
                         isReadOnly />
-
                 </FormControl>
             </HStack>
+            <FormControl mb={2}>
+                <FormControl.Label>Descripción</FormControl.Label>
+                <TextArea value={formik.values.descripcion}
+                    onChangeText={formik.handleChange('descripcion')} />
+            </FormControl>
+            <FormControl mb={2}>
+                <FormControl.Label>Magnitud</FormControl.Label>
+                <TextArea value={formik.values.magnitud}
+                    onChangeText={formik.handleChange('magnitud')} />
+            </FormControl>
+            <FormControl mb={2}>
+                <FormControl.Label>Descripción</FormControl.Label>
+                <TextArea value={formik.values.descripcion}
+                    onChangeText={formik.handleChange('descripcion')} />
+            </FormControl>
+            <FormControl mb={2}>
+                <FormControl.Label>Magnitud</FormControl.Label>
+                <TextArea value={formik.values.magnitud}
+                    onChangeText={formik.handleChange('magnitud')} />
+            </FormControl>
             <FormControl mb={2}>
                 <FormControl.Label>Descripción</FormControl.Label>
                 <TextArea value={formik.values.descripcion}

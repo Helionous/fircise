@@ -1,15 +1,14 @@
 import { initializeApp } from "firebase/app"
 import { getAuth } from "firebase/auth"
 import { getFirestore } from "firebase/firestore"
-import Constants from "expo-constants"
 
 const firebaseConfig = {
-    apiKey: Constants.expoConfig.extra.apiKey,
-    authDomain: Constants.expoConfig.extra.authDomain,
-    projectId: Constants.expoConfig.extra.projectId,
-    storageBucket: Constants.expoConfig.extra.storageBucket,
-    messagingSenderId: Constants.expoConfig.extra.messagingSenderId,
-    appId: Constants.expoConfig.extra.appId,
+    apiKey: "AIzaSyB7jtzVayllo_g0Xc_xWZjrS5xvw4Ne334",
+    authDomain: "fircise.firebaseapp.com",
+    projectId: "fircise",
+    storageBucket: "fircise.appspot.com",
+    messagingSenderId: "303133651459",
+    appId: "1:303133651459:web:50c4eb8f7a3076b6c75436"
 }
 
 // Initialize Firebase

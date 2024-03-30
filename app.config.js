@@ -1,5 +1,3 @@
-import 'dotenv/config'
-
 export default {
     "expo": {
         "name": "fircise",
@@ -23,6 +21,12 @@ export default {
             "adaptiveIcon": {
                 "foregroundImage": "./assets/adaptive-icon.png",
                 "backgroundColor": "#ffffff"
+            },
+            "package": "com.sysmagnus.fircise",
+            "config": {
+                "googleMaps": {
+                    "apiKey": "AIzaSyDuk94MlwK88g1v-rW6QXDbMjJlGBMkB6o"
+                }
             }
         },
         "web": {

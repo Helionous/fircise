@@ -47,16 +47,6 @@ export const useUserStore = create((set) => ({
             console.error('Error al obtener las alertas:', error)
         }
     },
-import { addDoc, collection } from "firebase/firestore"
-
-export const useUserStore = create((set) => ({
-    userAuth: {
-        userId: '',
-        nombre: '',
-        email: '',
-        rol: 'guest',
-    },
-    setUserAuth: (user) => set({ userAuth: user }),
     registerUser: async (email, password, nombre) => {
         try {
             const userCredential = await createUserWithEmailAndPassword(auth, email, password)

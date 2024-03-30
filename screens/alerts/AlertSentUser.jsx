@@ -4,13 +4,11 @@ import { useEffect } from "react"
 import { useState } from "react"
 import { useAlertStore, useUserStore } from "../../store"
 
-
 export const AlertSentUser = ({ navigation }) => {
     const [count, setCount] = useState(3)
     const alertForm = useAlertStore(state => state.alertForm)
     const createAlert = useAlertStore(state => state.createAlert)
     const userAuth = useUserStore(state => state.userAuth)
-
 
     useEffect(() => {
         saveChangesAlert()
@@ -29,7 +27,6 @@ export const AlertSentUser = ({ navigation }) => {
 
     const saveChangesAlert = () => {
         alertForm.userId = userAuth.userId
-
         createAlert(alertForm)
         console.log('Alerta enviado:', alertForm)
     }
