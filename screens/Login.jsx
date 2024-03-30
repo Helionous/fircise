@@ -1,28 +1,14 @@
 import React from "react"
-import { Text, View, StyleSheet } from "react-native"
-import { Input, Button, Link, Center, VStack } from "native-base"
-
-export const Login = ({ navigation }) => {
-    const navigateToHomeTabsGuest = () => {
-        navigation.navigate('HomeTabsGuest')
-    }
-
-    const navigateToRegisterUser = () => {
-        navigation.navigate('RegisterUser')
-    }
-
-    const navigateToHome = () => {
-        navigation.navigate('HomeTabsAdmin')
-    }
-
-
 import { Text, View, StyleSheet, Alert } from "react-native"
 import { Input, Button, Link, Center, VStack } from "native-base"
 import { useFormik } from "formik"
 import { signInWithEmailAndPassword } from "firebase/auth"
 import { auth } from "../config/firebase"
+import { useUserStore } from "../store/user"
 
 export const Login = ({ navigation }) => {
+    const setUserAuth = useUserStore(state => state.setUserAuth)
+
     const formik = useFormik({
         initialValues: {
             email: "",
@@ -31,6 +17,11 @@ export const Login = ({ navigation }) => {
         onSubmit: (values) => {
             signInWithEmailAndPassword(auth, values.email, values.password)
                 .then((userCredential) => {
+                    setUserAuth({
+                        userId: userCredential.user.uid,
+                        email: values.email,
+                        rol: 'user',
+                    })
                     console.log(userCredential)
                     console.log('Usuario logueado')
                 })
@@ -52,10 +43,6 @@ export const Login = ({ navigation }) => {
         navigation.navigate('HomeTabsAdmin')
     }
 
-    const navigateToRegisterUser = () => {
-        navigation.navigate('RegisterUser')
-    }
-
     return (
         <View>
             <Center style={styles.header}>
@@ -63,17 +50,13 @@ export const Login = ({ navigation }) => {
                 <Text style={styles.subTitle}>Inicia Sessión</Text>
             </Center>
             <VStack mx={3} space={3}>
-                <Input placeholder="Correo Electronico" />
-                <Input placeholder="********" />
-                <Button onPress={navigateToHome}>Iniciar Sessión</Button>
-
-            <VStack mx={3} space={3}>
                 <Input
                     placeholder="Correo Electronico"
                     onChangeText={formik.handleChange("email")}
                     value={formik.values.email}
                 />
                 <Input
+                    secureTextEntry={true}
                     placeholder="********"
                     onChangeText={formik.handleChange("password")}
                     value={formik.values.password}
@@ -90,7 +73,6 @@ export const Login = ({ navigation }) => {
                     </Link>
                 </Center>
             </VStack>
-
         </View>
     );
 }
@@ -110,4 +92,3 @@ const styles = StyleSheet.create({
         marginBottom: 10,
     },
 })
-

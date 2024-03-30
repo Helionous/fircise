@@ -8,12 +8,9 @@ import { Avatar, HStack, IconButton, Input } from "native-base"
 import { auth } from "../config/firebase"
 import { signOut } from "firebase/auth"
 
-
 const Tab = createBottomTabNavigator()
 
 export const HomeTabsUser = ({ navigation }) => {
-
-
     const signOutLocal = async () => {
         try {
             await signOut(auth);
@@ -79,7 +76,7 @@ export const HomeTabsUser = ({ navigation }) => {
                             variant="ghost"
                             _icon={{
                                 as: Ionicons,
-                                name: "checkmark",
+                                name: "save",
                             }} mr={2} />
                     )
                 }} />
@@ -102,10 +99,7 @@ export const HomeTabsUser = ({ navigation }) => {
                     ),
                     headerRight: () => (
                         <IconButton
-                            onPress={() => navigation.navigate('Login')}
-
                             onPress={signOutLocal}
-
                             variant="ghost"
                             _icon={{
                                 as: Feather,

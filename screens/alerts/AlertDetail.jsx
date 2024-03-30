@@ -1,13 +1,10 @@
 import { Box, Center, Heading, Text } from "native-base"
-import { useState } from "react"
 import { ScrollView, StyleSheet } from "react-native"
 import MapView, { Marker } from "react-native-maps"
+import { useAlertStore } from "../../store/alert"
 
-export const AlertDetail = () => {
-    const [origin, setOrigin] = useState({
-        latitude: -13.617373,
-        longitude: -72.868008,
-    })
+export const AlertDetail = ({ navigation }) => {
+    const selectedAlert = useAlertStore(state => state.selectedAlert)
 
     return (
         <ScrollView style={{
@@ -16,34 +13,33 @@ export const AlertDetail = () => {
         }}>
             <Center mt={2} mb={2}>
                 <MapView
-                    initialRegion={{
-                        latitude: origin.latitude,
-                        longitude: origin.longitude,
+                    region={{
+                        latitude: parseFloat(selectedAlert.latitud),
+                        longitude: parseFloat(selectedAlert.longitud),
                         latitudeDelta: 0.0922,
                         longitudeDelta: 0.0421,
                     }}
                     style={styles.map} >
                     <Marker
-                        title="Universidad"
-                        description={`Lat: ${origin.latitude} Lng: ${origin.longitude}`}
-                        draggable={true}
-                        coordinate={origin}
-                        onDragEnd={(e) => setOrigin(e.nativeEvent.coordinate)}
+                        coordinate={{
+                            latitude: parseFloat(selectedAlert.latitud),
+                            longitude: parseFloat(selectedAlert.longitud),
+                        }}
                     />
                 </MapView>
             </Center>
-            <Text>15-03-2024</Text>
+            <Text>{selectedAlert.fecha}</Text>
             <Box mt={4}>
-                <Heading>Reserva Central Abancay</Heading>
-                <Text fontSize="lg">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quaerat ipsam, dolores assumenda sunt temporibus culpa quis magni accusantium ea tempore cupiditate iusto doloribus corporis officiis non obcaecati? Suscipit, voluptatibus quod.</Text>
+                <Heading>{selectedAlert.lugar}</Heading>
+                <Text fontSize="lg">{selectedAlert.descripcion}</Text>
             </Box>
             <Box mt={4}>
                 <Heading>Magnitud</Heading>
-                <Text fontSize="lg">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quaerat ipsam, dolores assumenda sunt temporibus culpa quis magni accusantium ea tempore cupiditate iusto doloribus corporis officiis non obcaecati? Suscipit, voluptatibus quod.</Text>
+                <Text fontSize="lg">{selectedAlert.magnitud}</Text>
             </Box>
             <Box mt={4}>
-                <Heading>Magnitud</Heading>
-                <Text fontSize="lg">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quaerat ipsam, dolores assumenda sunt temporibus culpa quis magni accusantium ea tempore cupiditate iusto doloribus corporis officiis non obcaecati? Suscipit, voluptatibus quod.</Text>
+                <Heading>Estado</Heading>
+                <Text fontSize="lg">{selectedAlert.estado}</Text>
             </Box>
         </ScrollView>
     )

@@ -11,49 +11,15 @@ import { Login } from "../screens/Login"
 import { UserProfileEdit } from "../screens/users/UserProfileEdit"
 import { RegisterUser } from "../screens/RegisterUser"
 import { AdminUsersUpdate, ProfileUserReport } from "../screens/users"
-
-const Stack = createStackNavigator()
 import { auth } from "../config/firebase"
 
-const AuthenticatedUserContext = createContext({})
+const Stack = createStackNavigator()
+export const AuthenticatedUserContext = createContext({})
 
 export const AuthenticatedUserProvider = ({ children }) => {
     const [user, setUser] = useState(null)
 
     return (
-        <Stack.Navigator initialRouteName="Login" screenOptions={{ headerShown: false }}>
-            <Stack.Screen name="Login" component={Login} options={{ title: '', headerTransparent: true }} />
-            <Stack.Screen name="HomeTabsAdmin" component={HomeTabsAdmin} />
-            <Stack.Screen name="HomeTabsUser" component={HomeTabsUser} />
-            <Stack.Screen name="HomeTabsGuest" component={HomeTabsGuest} />
-            {/** Otras rutas  */}
-            <Stack.Screen name="RegisterUser" component={RegisterUser} />
-            <Stack.Screen name="AdminUsersUpdate" component={AdminUsersUpdate} />
-            <Stack.Screen name="AlertSentUser" component={AlertSentUser} />
-            <Stack.Screen
-                name="ProfileUserReport"
-                component={ProfileUserReport}
-                options={{
-                    title: 'Perfil',
-                    headerShown: true,
-                    headerTransparent: false
-                }} />
-            <Stack.Screen
-                name="UserProfileEdit"
-                component={UserProfileEdit}
-                options={{
-                    title: 'Perfil',
-                    headerShown: true,
-                    headerTransparent: false
-                }} />
-            <Stack.Screen
-                name="AlertDetail"
-                component={AlertDetail}
-                options={{
-                    title: 'Detalles',
-                    headerShown: true,
-                    headerTransparent: false
-                }} />
         <AuthenticatedUserContext.Provider value={{ user, setUser }}>
             {children}
         </AuthenticatedUserContext.Provider>
@@ -66,7 +32,14 @@ function GuestStack() {
             <Stack.Screen name="Login" component={Login} options={{ title: '', headerTransparent: true }} />
             <Stack.Screen name="RegisterUser" component={RegisterUser} />
             <Stack.Screen name="HomeTabsGuest" component={HomeTabsGuest} />
-
+            <Stack.Screen
+                name="AlertDetail"
+                component={AlertDetail}
+                options={{
+                    title: 'Detalles',
+                    headerShown: true,
+                    headerTransparent: false
+                }} />
         </Stack.Navigator>
     )
 }
@@ -75,7 +48,7 @@ function AdminStack() {
     return (
         <Stack.Navigator initialRouteName="HomeTabsUser" screenOptions={{ headerShown: false }}>
             <Stack.Screen name="HomeTabsAdmin" component={HomeTabsAdmin} />
-            <Stack.Screen name="HomeTabsUser" component={HomeTabsUser} />            
+            <Stack.Screen name="HomeTabsUser" component={HomeTabsUser} />
             <Stack.Screen name="AdminUsersUpdate" component={AdminUsersUpdate} />
             <Stack.Screen name="AlertSentUser" component={AlertSentUser} />
             <Stack.Screen
@@ -102,7 +75,6 @@ function AdminStack() {
                     headerShown: true,
                     headerTransparent: false
                 }} />
-
         </Stack.Navigator>
     )
 }

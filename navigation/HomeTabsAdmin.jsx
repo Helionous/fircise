@@ -1,7 +1,7 @@
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs"
 import { AdminAlertList } from "../screens/alerts"
 import { AdminUsersList } from "../screens/users"
-import { HomeAdmin } from "../screens/home"
+import { HomeAdmin, HomeUser } from "../screens/home"
 import { Pressable, Text, Touchable } from "react-native"
 import { Avatar, HStack, IconButton } from "native-base"
 import { Feather } from "@expo/vector-icons"
@@ -18,8 +18,8 @@ export const HomeTabsAdmin = ({ navigation }) => {
     return (
         <Tab.Navigator>
             <Tab.Screen
-                name="HomeAdmin"
-                component={HomeAdmin}
+                name="HomeUser"
+                component={HomeUser}
                 options={{
                     title: '',
                     tabBarLabel: 'Inicio',
