@@ -1,4 +1,20 @@
 import React from "react"
+import { Text, View, StyleSheet } from "react-native"
+import { Input, Button, Link, Center, VStack } from "native-base"
+
+export const Login = ({ navigation }) => {
+    const navigateToHomeTabsGuest = () => {
+        navigation.navigate('HomeTabsGuest')
+    }
+
+    const navigateToRegisterUser = () => {
+        navigation.navigate('RegisterUser')
+    }
+
+    const navigateToHome = () => {
+        navigation.navigate('HomeTabsAdmin')
+    }
+
 
 import { Text, View, StyleSheet, Alert } from "react-native"
 import { Input, Button, Link, Center, VStack } from "native-base"
@@ -46,6 +62,10 @@ export const Login = ({ navigation }) => {
                 <Text style={styles.title}>FIRCISE</Text>
                 <Text style={styles.subTitle}>Inicia Sessión</Text>
             </Center>
+            <VStack mx={3} space={3}>
+                <Input placeholder="Correo Electronico" />
+                <Input placeholder="********" />
+                <Button onPress={navigateToHome}>Iniciar Sessión</Button>
 
             <VStack mx={3} space={3}>
                 <Input

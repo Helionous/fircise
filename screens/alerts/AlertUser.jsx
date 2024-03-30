@@ -1,3 +1,9 @@
+import { Center, FormControl, HStack, Input, Select } from "native-base"
+import { useState } from "react"
+import { StyleSheet, View } from "react-native"
+import MapView, { Marker } from "react-native-maps"
+
+export const AlertUser = () => {
 
 import { Center, FormControl, HStack, Input, ScrollView, Select } from "native-base"
 import { Button, Center, FormControl, HStack, Input, Select } from "native-base"
@@ -18,6 +24,8 @@ export const AlertUser = () => {
         longitude: -72.868008,
     })
 
+    return (
+        <View style={{ margin: 10 }}>
     const initialValues = {
         latitud: origin.latitude.toString(),
         longitud: origin.longitude.toString(),
@@ -79,6 +87,12 @@ export const AlertUser = () => {
             </FormControl>
             <HStack space={2} mb={2}>
                 <FormControl flex={1}>
+                    <FormControl.Label>Fecha</FormControl.Label>
+                    <Input placeholder="2024/01/01" />
+                </FormControl>
+                <FormControl flex={1}>
+                    <FormControl.Label>Hora</FormControl.Label>
+                    <Input placeholder="08:00" />
                     <FormControl.Label>Latitud</FormControl.Label>
                     <Input value={origin.latitude.toString()} isReadOnly />
                 </FormControl>
@@ -131,6 +145,7 @@ export const AlertUser = () => {
                 <Input />
             </FormControl>
 
+        </View>
 
 
         </ScrollView>
