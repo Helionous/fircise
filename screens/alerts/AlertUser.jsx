@@ -8,6 +8,21 @@ import { useFocusEffect } from "@react-navigation/core"
 import { useCallback } from "react"
 
 export const AlertUser = () => {
+
+import { Center, FormControl, HStack, Input, ScrollView, Select } from "native-base"
+import { Button, Center, FormControl, HStack, Input, Select } from "native-base"
+
+import { useState } from "react"
+import { StyleSheet } from "react-native"
+import MapView, { Marker } from "react-native-maps"
+import DateTimePicker from '@react-native-community/datetimepicker'
+import { useFormik } from "formik"
+
+export const AlertUser = () => {
+    const [date, setDate] = useState(new Date())
+    const [time, setTime] = useState(new Date())
+    const [showDatePicker, setShowDatePicker] = useState(false)
+    const [showTimePicker, setShowTimePicker] = useState(false)
     const [origin, setOrigin] = useState({
         latitude: -13.617373,
         longitude: -72.868008,
@@ -39,7 +54,7 @@ export const AlertUser = () => {
     }, [formik.values])
 
     return (
-        <ScrollView style={{ margin: 10 }}>
+        <View style={{ margin: 10 }}>
             <FormControl>
                 <FormControl.Label>Lugar del Incendio</FormControl.Label>
                 <Input value={formik.values.lugar}
@@ -74,10 +89,8 @@ export const AlertUser = () => {
                         isReadOnly />
                 </FormControl>
                 <FormControl flex={1}>
-                    <FormControl.Label>Longitud</FormControl.Label>
-                    <Input
-                        value={origin.longitude.toString()}
-                        isReadOnly />
+                    <FormControl.Label>Hora</FormControl.Label>
+                    <Input placeholder="08:00" />
                 </FormControl>
             </HStack>
             <FormControl mb={2}>
@@ -105,7 +118,12 @@ export const AlertUser = () => {
                     <Select.Item label="Evacuación" value="Evacuación" />
                 </Select>
             </FormControl>
-        </ScrollView>
+            <FormControl>
+                <FormControl.Label>Magnitud</FormControl.Label>
+                <Input />
+            </FormControl>
+
+        </View>
     )
 }
 
