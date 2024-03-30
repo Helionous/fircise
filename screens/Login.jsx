@@ -1,5 +1,4 @@
 import React from "react"
-
 import { Text, View, StyleSheet, Alert } from "react-native"
 import { Input, Button, Link, Center, VStack } from "native-base"
 import { useFormik } from "formik"
@@ -48,17 +47,12 @@ export const Login = ({ navigation }) => {
         navigation.navigate('HomeTabsAdmin')
     }
 
-    const navigateToRegisterUser = () => {
-        navigation.navigate('RegisterUser')
-    }
-
     return (
         <View>
             <Center style={styles.header}>
                 <Text style={styles.title}>FIRCISE</Text>
                 <Text style={styles.subTitle}>Inicia Sessión</Text>
             </Center>
-
             <VStack mx={3} space={3}>
                 <Input
                     placeholder="Correo Electronico"
@@ -83,7 +77,6 @@ export const Login = ({ navigation }) => {
                     </Link>
                 </Center>
             </VStack>
-
         </View>
     );
 }
@@ -103,4 +96,3 @@ const styles = StyleSheet.create({
         marginBottom: 10,
     },
 })
-

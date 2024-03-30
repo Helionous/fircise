@@ -8,6 +8,7 @@ import { Avatar, HStack, IconButton, Text } from "native-base"
 import { auth } from "../config/firebase"
 import { signOut } from "firebase/auth"
 import { useUserStore } from "../store"
+import { View } from "react-native"
 
 const Tab = createBottomTabNavigator()
 
@@ -26,14 +27,35 @@ export const HomeTabsUser = ({ navigation }) => {
     }
 
     return (
-        <Tab.Navigator>
+        <Tab.Navigator screenOptions={{
+            tabBarActiveTintColor: 'tomato',
+            tabBarInactiveTintColor: 'gray',
+            tabBarLabelStyle: {
+                paddingBottom: 10,
+                fontWeight: 'bold',
+                fontSize: 16,
+            },
+            tabBarStyle: {
+                padding: 10,
+                height: 80,
+            }
+        }}>
             <Tab.Screen
                 name="HomeUser"
                 component={HomeUser}
                 options={{
                     tabBarLabel: 'Inicio',
-                    tabBarIcon: ({ color, size }) => (
-                        <Feather name="home" size={size} color={color} />
+                    tabBarIcon: ({ color, size, focused }) => (
+                        <View style={{
+                            backgroundColor: focused ? 'tomato' : 'transparent',
+                            borderRadius: 5,
+                            paddingLeft: 10,
+                            paddingRight: 10,
+                            paddingTop: 5,
+                            paddingBottom: 5
+                        }}>
+                            <Feather name="home" size={size} color={focused ? 'white' : color} />
+                        </View>
                     ),
                     headerLeft: () => (
                         <Text ml={2}>Bienvenido admin, {userAuth.nombre}!</Text>
@@ -59,8 +81,17 @@ export const HomeTabsUser = ({ navigation }) => {
                 options={{
                     title: 'Alertar',
                     tabBarLabel: 'Alertas',
-                    tabBarIcon: ({ color, size }) => (
-                        <Feather name="alert-circle" size={size} color={color} />
+                    tabBarIcon: ({ color, size, focused }) => (
+                        <View style={{
+                            backgroundColor: focused ? 'tomato' : 'transparent',
+                            borderRadius: 5,
+                            paddingLeft: 10,
+                            paddingRight: 10,
+                            paddingTop: 5,
+                            paddingBottom: 5
+                        }}>
+                            <Feather name="alert-circle" size={size} color={focused ? 'white' : color} />
+                        </View>
                     ),
                     headerLeft: () => (
                         <IconButton
@@ -86,8 +117,17 @@ export const HomeTabsUser = ({ navigation }) => {
                 options={{
                     title: 'Perfil',
                     tabBarLabel: 'Mi Perfil',
-                    tabBarIcon: ({ color, size }) => (
-                        <Feather name="user" size={size} color={color} />
+                    tabBarIcon: ({ color, size, focused }) => (
+                        <View style={{
+                            backgroundColor: focused ? 'tomato' : 'transparent',
+                            borderRadius: 5,
+                            paddingLeft: 10,
+                            paddingRight: 10,
+                            paddingTop: 5,
+                            paddingBottom: 5
+                        }}>
+                            <Feather name="user" size={size} color={focused ? 'white' : color} />
+                        </View>
                     ),
                     headerLeft: () => (
                         <IconButton

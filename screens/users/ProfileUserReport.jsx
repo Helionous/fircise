@@ -33,7 +33,7 @@ export const ProfileUserReport = ({ navigation }) => {
                 <Text fontSize="xl" fontWeight="bold">@{userAuth.nombre}</Text>
                 <HStack space={3} mt={2} mb={2}>
                     <Button bg="secondary.700" onPress={() => console.log("hello world")}>Mis Reportes</Button>
-                    <Button bg="muted.500" onPress={() => navigation.navigate('UserProfileEdit')}>Actualizar</Button>
+                    <Button bg="muted.500" onPress={() => navigation.navigate('UserProfileEdit')}>Información</Button>
                 </HStack>
             </Center>
             <VStack space={3} ml={5} mr={5}>

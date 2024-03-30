@@ -1,5 +1,3 @@
-import 'dotenv/config'
-
 export default {
     "expo": {
         "name": "fircise",
@@ -23,18 +21,18 @@ export default {
             "adaptiveIcon": {
                 "foregroundImage": "./assets/adaptive-icon.png",
                 "backgroundColor": "#ffffff"
+            },
+            "package": "com.sysmagnus.fircise",
+            "config": {
+                "googleMaps": {
+                    "apiKey": "AIzaSyDuk94MlwK88g1v-rW6QXDbMjJlGBMkB6o"
+                }
             }
         },
         "web": {
             "favicon": "./assets/favicon.png"
         },
         "extra": {
-            apiKey: process.env.APIKEY,
-            authDomain: process.env.AUTHDOMAIN,
-            projectId: process.env.PROJECTID,
-            storageBucket: process.env.STORAGEBUCKET,
-            messagingSenderId: process.env.MESSAGINGSENDERID,
-            appId: process.env.APPID
         }
     }
 }

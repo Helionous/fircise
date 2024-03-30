@@ -1,6 +1,6 @@
 import { useCallback, useState } from "react"
 import { StyleSheet, View } from "react-native"
-import MapView, { Marker } from "react-native-maps"
+import MapView, { Marker, PROVIDER_GOOGLE } from "react-native-maps"
 import { useAlertStore } from "../../store/alert"
 import { useFocusEffect } from "@react-navigation/core"
 import { useUserStore } from "../../store"
@@ -29,6 +29,7 @@ export const HomeUser = ({ navigation }) => {
     return (
         <View style={styles.container}>
             <MapView
+                provider={PROVIDER_GOOGLE}
                 initialRegion={{
                     latitude: origin.latitude,
                     longitude: origin.longitude,

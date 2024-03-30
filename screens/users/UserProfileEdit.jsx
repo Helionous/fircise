@@ -1,7 +1,10 @@
 import { Avatar, Button, Center, FormControl, HStack, Input, Text, VStack } from "native-base"
 import { ScrollView } from "react-native"
+import { useUserStore } from "../../store/user"
 
 export const UserProfileEdit = ({ navigation }) => {
+    const userAuth = useUserStore((state) => state.userAuth)
+
     return (
         <ScrollView style={{marginLeft: 10, marginRight: 10}}>
             <Center>
@@ -15,23 +18,23 @@ export const UserProfileEdit = ({ navigation }) => {
                 <Text fontSize="xl" fontWeight="bold">@Henry</Text>
                 <HStack space={3} mt={2} mb={2}>
                     <Button bg="secondary.700" onPress={() => navigation.navigate('ProfileUserReport')}>Mis Reportes</Button>
-                    <Button bg="muted.500" onPress={() => console.log("hello world")}>Actualizar</Button>
+                    <Button bg="muted.500" onPress={() => console.log("hello world")}>Información</Button>
                 </HStack>
             </Center>
             <VStack>
                 <FormControl mb={2}>
                     <FormControl.Label>Nombre</FormControl.Label>
-                    <Input />
+                    <Text>{userAuth.nombre}</Text>
                 </FormControl>
                 <FormControl mb={2}>
-                    <FormControl.Label>Correo</FormControl.Label>
-                    <Input />
+                    <FormControl.Label>Rol</FormControl.Label>
+                    <Text>{userAuth.rol}</Text>
                 </FormControl>
-                <FormControl mb={2}>
+                {/* <FormControl mb={2}>
                     <FormControl.Label>Actualizar contraseña</FormControl.Label>
                     <Input mb={2} />
                     <Input />
-                </FormControl>
+                </FormControl> */}
             </VStack>
         </ScrollView>
     )

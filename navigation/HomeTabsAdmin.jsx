@@ -2,7 +2,7 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs"
 import { AdminAlertList, ValidateAlerts } from "../screens/alerts"
 import { AdminUsersList } from "../screens/users"
 import { HomeUser } from "../screens/home"
-import { Pressable, Text } from "react-native"
+import { Pressable, Text, View } from "react-native"
 import { Avatar, HStack, IconButton } from "native-base"
 import { Feather } from "@expo/vector-icons"
 import { Ionicons } from "@expo/vector-icons"
@@ -17,8 +17,8 @@ export const HomeTabsAdmin = ({ navigation }) => {
     const setDefaultUserAuth = useUserStore(state => state.setDefaultUserAuth)
 
     const signOutLocal = async () => {
-        try {            
-            await signOut(auth)            
+        try {
+            await signOut(auth)
             setDefaultUserAuth()
             console.log('User signed out!')
         } catch (error) {
@@ -31,15 +31,36 @@ export const HomeTabsAdmin = ({ navigation }) => {
     }
 
     return (
-        <Tab.Navigator>
+        <Tab.Navigator screenOptions={{
+            tabBarActiveTintColor: 'tomato',
+            tabBarInactiveTintColor: 'gray',
+            tabBarLabelStyle: {
+                paddingBottom: 10,
+                fontWeight: 'bold',
+                fontSize: 16,
+            },
+            tabBarStyle: {
+                padding: 10,
+                height: 80,
+            }
+        }}>
             <Tab.Screen
                 name="HomeUser"
                 component={HomeUser}
                 options={{
                     title: '',
                     tabBarLabel: 'Inicio',
-                    tabBarIcon: ({ color, size }) => (
-                        <Feather name="home" size={size} color={color} />
+                    tabBarIcon: ({ color, size, focused }) => (
+                        <View style={{
+                            backgroundColor: focused ? 'tomato' : 'transparent',
+                            borderRadius: 5,
+                            paddingLeft: 10,
+                            paddingRight: 10,
+                            paddingTop: 5,
+                            paddingBottom: 5
+                        }}>
+                            <Feather name="home" size={size} color={focused ? 'white' : color} />
+                        </View>
                     ),
                     headerLeft: () => (
                         <Text>Bienvenido admin, {userAuth.nombre}!</Text>
@@ -69,8 +90,17 @@ export const HomeTabsAdmin = ({ navigation }) => {
                 options={{
                     title: 'Alertas',
                     tabBarLabel: 'Alertas',
-                    tabBarIcon: ({ color, size }) => (
-                        <Feather name="alert-circle" size={size} color={color} />
+                    tabBarIcon: ({ color, size, focused }) => (
+                        <View style={{
+                            backgroundColor: focused ? 'tomato' : 'transparent',
+                            borderRadius: 5,
+                            paddingLeft: 10,
+                            paddingRight: 10,
+                            paddingTop: 5,
+                            paddingBottom: 5
+                        }}>
+                            <Feather name="alert-circle" size={size} color={focused ? 'white' : color} />
+                        </View>
                     ),
                     headerLeft: () => (
                         <IconButton
@@ -87,8 +117,17 @@ export const HomeTabsAdmin = ({ navigation }) => {
                 options={{
                     title: 'Usuarios',
                     tabBarLabel: 'Usuarios',
-                    tabBarIcon: ({ color, size }) => (
-                        <Feather name="user" size={size} color={color} />
+                    tabBarIcon: ({ color, size, focused }) => (
+                        <View style={{
+                            backgroundColor: focused ? 'tomato' : 'transparent',
+                            borderRadius: 5,
+                            paddingLeft: 10,
+                            paddingRight: 10,
+                            paddingTop: 5,
+                            paddingBottom: 5
+                        }}>
+                            <Feather name="user" size={size} color={focused ? 'white' : color} />
+                        </View>
                     ),
                     headerRight: () => (
                         <IconButton
@@ -106,8 +145,17 @@ export const HomeTabsAdmin = ({ navigation }) => {
                 options={{
                     title: 'Validar Alertas',
                     tabBarLabel: 'Validar',
-                    tabBarIcon: ({ color, size }) => (
-                        <Feather name="check-square" size={size} color={color} />
+                    tabBarIcon: ({ color, size, focused }) => (
+                        <View style={{
+                            backgroundColor: focused ? 'tomato' : 'transparent',
+                            borderRadius: 5,
+                            paddingLeft: 10,
+                            paddingRight: 10,
+                            paddingTop: 5,
+                            paddingBottom: 5
+                        }}>
+                            <Feather name="check-square" size={size} color={focused ? 'white' : color} />
+                        </View>
                     )
                 }} />
         </Tab.Navigator>

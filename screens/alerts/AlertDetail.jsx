@@ -1,6 +1,6 @@
 import { Box, Button, Center, Heading, Text } from "native-base"
 import { Alert, ScrollView, StyleSheet } from "react-native"
-import MapView, { Marker } from "react-native-maps"
+import MapView, { Marker, PROVIDER_GOOGLE } from "react-native-maps"
 import { useAlertStore } from "../../store"
 
 export const AlertDetail = () => {
@@ -21,6 +21,7 @@ export const AlertDetail = () => {
         }}>
             <Center mt={2} mb={2}>
                 <MapView
+                provider={PROVIDER_GOOGLE}
                     region={{
                         latitude: parseFloat(selectedAlert.latitud),
                         longitude: parseFloat(selectedAlert.longitud),
