@@ -39,7 +39,7 @@ export const ProfileUserReport = ({ navigation }) => {
             <VStack space={3} ml={5} mr={5}>
                 {
                     userAlerts.map(alert => (
-                        <TouchableOpacity onPress={navigateToAlertDetail}>
+                        <TouchableOpacity key={alert.id} onPress={navigateToAlertDetail}>
                             <Box rounded="lg"
                                 overflow="hidden"
                                 borderColor="coolGray.200"

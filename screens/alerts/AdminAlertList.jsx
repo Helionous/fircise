@@ -24,7 +24,7 @@ export const AdminAlertList = ({ navigation }) => {
             <VStack space={3} ml={5} mr={5}>
                 {
                     alerts && alerts.map(alert => (
-                        <TouchableOpacity onPress={() => navigateToAlertDetail(alert)}>
+                        <TouchableOpacity key={alert.id} onPress={() => navigateToAlertDetail(alert)}>
                             <Box rounded="lg"
                                 overflow="hidden"
                                 backgroundColor="white"
@@ -34,11 +34,11 @@ export const AdminAlertList = ({ navigation }) => {
                                 <HStack space={2}>
                                     <Entypo name="location-pin" size={24} color="black" />
                                     <VStack style={{ flex: 1, justifyContent: 'center' }}>
-                                        <Heading>Ubicación</Heading>
-                                        <Text>Magnitud: 3</Text>
-                                        <Text>15-03-2024</Text>
+                                        <Heading>{alert.lugar}</Heading>
+                                        <Text>Magnitud: {alert.magnitud}</Text>
+                                        <Text>{alert.fecha}</Text>
                                     </VStack>
-                                    <Text>En incendio</Text>
+                                    <Text>{alert.estado}</Text>
                                 </HStack>
                             </Box>
                         </TouchableOpacity>

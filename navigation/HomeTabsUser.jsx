@@ -4,11 +4,27 @@ import { Ionicons } from '@expo/vector-icons'
 import { HomeUser } from "../screens/home"
 import { AlertUser } from "../screens/alerts"
 import { ProfileUserReport } from "../screens/users"
-import { Avatar, HStack, IconButton, Input } from "native-base"
+import { Avatar, HStack, IconButton, Text } from "native-base"
+import { auth } from "../config/firebase"
+import { signOut } from "firebase/auth"
+import { useUserStore } from "../store"
 
 const Tab = createBottomTabNavigator()
 
 export const HomeTabsUser = ({ navigation }) => {
+    const userAuth = useUserStore(state => state.userAuth)
+    const setDefaultUserAuth = useUserStore(state => state.setDefaultUserAuth)
+
+    const signOutLocal = async () => {
+        try {
+            await signOut(auth)
+            setDefaultUserAuth()
+            console.log('User signed out!')
+        } catch (error) {
+            console.error('Error signing out: ', error)
+        }
+    }
+
     return (
         <Tab.Navigator>
             <Tab.Screen
@@ -83,7 +99,7 @@ export const HomeTabsUser = ({ navigation }) => {
                     ),
                     headerRight: () => (
                         <IconButton
-                            onPress={() => navigation.navigate('Login')}
+                            onPress={() => navigation.navigate('Logout')}
                             variant="ghost"
                             _icon={{
                                 as: Feather,
