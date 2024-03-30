@@ -1,20 +1,20 @@
 import { Box, HStack, Heading, Text, VStack } from "native-base"
-import { TouchableOpacity, View } from "react-native"
-import { Entypo } from "@expo/vector-icons"
 import { useAlertStore } from "../../store"
 import { useFocusEffect } from "@react-navigation/native"
 import { useCallback } from "react"
+import { TouchableOpacity, View } from "react-native"
+import { Entypo } from "@expo/vector-icons"
 
-export const AdminAlertList = ({ navigation }) => {
+export const ValidateAlerts = ({ navigation }) => {
     const alerts = useAlertStore(state => state.alerts)
     const fetchAlerts = useAlertStore(state => state.fetchAlerts)
     const setSelectedAlert = useAlertStore(state => state.setSelectedAlert)
 
     useFocusEffect(useCallback(() => {
-        fetchAlerts(true)
+        fetchAlerts(false)
     }, []))
 
-    const navigateToAlertDetail = (alert) => {
+    const navigateToAlertDetail = async (alert) => {
         setSelectedAlert(alert)
         navigation.navigate('AlertDetail')
     }

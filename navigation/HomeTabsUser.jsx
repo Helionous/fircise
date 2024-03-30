@@ -1,24 +1,27 @@
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs"
-
 import { Feather } from '@expo/vector-icons'
 import { Ionicons } from '@expo/vector-icons'
 import { HomeUser } from "../screens/home"
 import { AlertUser } from "../screens/alerts"
 import { ProfileUserReport } from "../screens/users"
-import { Avatar, HStack, IconButton, Input } from "native-base"
+import { Avatar, HStack, IconButton, Text } from "native-base"
 import { auth } from "../config/firebase"
 import { signOut } from "firebase/auth"
+import { useUserStore } from "../store"
 
 const Tab = createBottomTabNavigator()
 
 export const HomeTabsUser = ({ navigation }) => {
+    const userAuth = useUserStore(state => state.userAuth)
+    const setDefaultUserAuth = useUserStore(state => state.setDefaultUserAuth)
 
     const signOutLocal = async () => {
         try {
-            await signOut(auth);
-            console.log('User signed out!');
+            await signOut(auth)
+            setDefaultUserAuth()
+            console.log('User signed out!')
         } catch (error) {
-            console.error('Error signing out: ', error);
+            console.error('Error signing out: ', error)
         }
     }
 
@@ -33,12 +36,7 @@ export const HomeTabsUser = ({ navigation }) => {
                         <Feather name="home" size={size} color={color} />
                     ),
                     headerLeft: () => (
-                        <Input
-                            ml={5}
-                            placeholder="Buscar"
-                            w={200} variant="rounded"
-                            InputLeftElement={<Feather name="search" style={{ paddingLeft: 10 }} size={24} color="black" />}
-                        />
+                        <Text ml={2}>Bienvenido admin, {userAuth.nombre}!</Text>
                     ),
                     headerRight: () => (
                         <HStack mr={4}>
@@ -78,7 +76,7 @@ export const HomeTabsUser = ({ navigation }) => {
                             variant="ghost"
                             _icon={{
                                 as: Ionicons,
-                                name: "checkmark",
+                                name: "save",
                             }} mr={2} />
                     )
                 }} />
@@ -101,7 +99,7 @@ export const HomeTabsUser = ({ navigation }) => {
                     ),
                     headerRight: () => (
                         <IconButton
-                            onPress={signOutLocal}
+                            onPress={() => navigation.navigate('Logout')}
                             variant="ghost"
                             _icon={{
                                 as: Feather,
@@ -110,20 +108,5 @@ export const HomeTabsUser = ({ navigation }) => {
                     )
                 }} />
         </Tab.Navigator >
-
-import { HomeUser } from "../screens/home"
-import { AlertUser } from "../screens/alerts"
-import { ProfileUserReport } from "../screens/users"
-
-const Tab = createBottomTabNavigator()
-
-export const HomeTabsUser = () => {
-    return (
-        <Tab.Navigator>
-            <Tab.Screen name="HomeUser" component={HomeUser} />
-            <Tab.Screen name="AlertUser" component={AlertUser} />
-            <Tab.Screen name="ProfileUserReport" component={ProfileUserReport} />
-        </Tab.Navigator>
-
     )
 }

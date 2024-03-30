@@ -1,14 +1,18 @@
-
-import { Box, Center, Heading, Text } from "native-base"
-import { useState } from "react"
-import { ScrollView, StyleSheet } from "react-native"
+import { Box, Button, Center, Heading, Text } from "native-base"
+import { Alert, ScrollView, StyleSheet } from "react-native"
 import MapView, { Marker } from "react-native-maps"
+import { useAlertStore } from "../../store"
 
 export const AlertDetail = () => {
-    const [origin, setOrigin] = useState({
-        latitude: -13.617373,
-        longitude: -72.868008,
-    })
+    const selectedAlert = useAlertStore(state => state.selectedAlert)
+    const validateAlert = useAlertStore(state => state.validateAlert)
+    const setSelectedAlert = useAlertStore(state => state.setSelectedAlert)
+
+    const handleValidateAlert = async () => {
+        const status = await validateAlert(selectedAlert.id)
+        setSelectedAlert({ ...selectedAlert, published: true })
+        Alert.alert(status.message)
+    }
 
     return (
         <ScrollView style={{
@@ -17,43 +21,41 @@ export const AlertDetail = () => {
         }}>
             <Center mt={2} mb={2}>
                 <MapView
-                    initialRegion={{
-                        latitude: origin.latitude,
-                        longitude: origin.longitude,
+                    region={{
+                        latitude: parseFloat(selectedAlert.latitud),
+                        longitude: parseFloat(selectedAlert.longitud),
                         latitudeDelta: 0.0922,
                         longitudeDelta: 0.0421,
                     }}
                     style={styles.map} >
                     <Marker
-                        title="Universidad"
-                        description={`Lat: ${origin.latitude} Lng: ${origin.longitude}`}
-                        draggable={true}
-                        coordinate={origin}
-                        onDragEnd={(e) => setOrigin(e.nativeEvent.coordinate)}
+                        coordinate={{
+                            latitude: parseFloat(selectedAlert.latitud),
+                            longitude: parseFloat(selectedAlert.longitud),
+                        }}
                     />
                 </MapView>
             </Center>
-            <Text>15-03-2024</Text>
+            <Text>{selectedAlert.fecha}</Text>
             <Box mt={4}>
-                <Heading>Reserva Central Abancay</Heading>
-                <Text fontSize="lg">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quaerat ipsam, dolores assumenda sunt temporibus culpa quis magni accusantium ea tempore cupiditate iusto doloribus corporis officiis non obcaecati? Suscipit, voluptatibus quod.</Text>
+                <Heading>{selectedAlert.lugar}</Heading>
+                <Text fontSize="lg">{selectedAlert.descripcion}</Text>
             </Box>
             <Box mt={4}>
                 <Heading>Magnitud</Heading>
-                <Text fontSize="lg">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quaerat ipsam, dolores assumenda sunt temporibus culpa quis magni accusantium ea tempore cupiditate iusto doloribus corporis officiis non obcaecati? Suscipit, voluptatibus quod.</Text>
+                <Text fontSize="lg">{selectedAlert.magnitud}</Text>
             </Box>
             <Box mt={4}>
-                <Heading>Magnitud</Heading>
-                <Text fontSize="lg">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quaerat ipsam, dolores assumenda sunt temporibus culpa quis magni accusantium ea tempore cupiditate iusto doloribus corporis officiis non obcaecati? Suscipit, voluptatibus quod.</Text>
+                <Heading>Estado</Heading>
+                <Text fontSize="lg">{selectedAlert.estado}</Text>
             </Box>
+            {
+                selectedAlert.published === false &&
+                <Box mt={2}>
+                    <Button onPress={() => handleValidateAlert(selectedAlert)}>Validar</Button>
+                </Box>
+            }
         </ScrollView>
-
-export const AlertDetail = () => {
-    return (
-        <View>
-            <Text>AlertDetail</Text>
-        </View>
-
     )
 }
 

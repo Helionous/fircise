@@ -1,7 +1,8 @@
 import 'react-native-gesture-handler'
 import { enableLatestRenderer } from 'react-native-maps'
-import { AuthenticatedUserProvider, Navigation } from './navigation'
+import { Navigation } from './navigation'
 import { NativeBaseProvider } from 'native-base'
+import { AuthenticatedUserProvider } from './context'
 
 enableLatestRenderer()
 

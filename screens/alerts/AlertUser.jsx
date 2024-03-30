@@ -1,65 +1,50 @@
-<<<<<<< HEAD
-import { Center, FormControl, HStack, Input, ScrollView, Select } from "native-base"
-=======
-
-import { Button, Center, FormControl, HStack, Input, Select } from "native-base"
->>>>>>> 54a62604e8c6f571a170bfb5bddbb4721da8e5ab
-import { useState } from "react"
+import { Center, FormControl, HStack, Input, ScrollView, Select, TextArea } from "native-base"
+import { useEffect, useState } from "react"
 import { StyleSheet } from "react-native"
 import MapView, { Marker } from "react-native-maps"
-import DateTimePicker from '@react-native-community/datetimepicker'
 import { useFormik } from "formik"
+import { useAlertStore } from "../../store/alert"
+import { useFocusEffect } from "@react-navigation/core"
+import { useCallback } from "react"
 
 export const AlertUser = () => {
-    const [date, setDate] = useState(new Date())
-    const [time, setTime] = useState(new Date())
-    const [showDatePicker, setShowDatePicker] = useState(false)
-    const [showTimePicker, setShowTimePicker] = useState(false)
     const [origin, setOrigin] = useState({
         latitude: -13.617373,
         longitude: -72.868008,
     })
 
+    const setAlertForm = useAlertStore(state => state.setAlertForm)
+    const date = new Date()
+
     const initialValues = {
+        lugar: "",
         latitud: origin.latitude.toString(),
         longitud: origin.longitude.toString(),
         fecha: date.toLocaleDateString(),
-        hora: time.toLocaleTimeString(),
+        hora: date.toLocaleTimeString(),
+        descripcion: "",
+        magnitud: "",
         estado: "",
-        magnitud: ""
+        published: false,
     }
 
-    const formik = useFormik({
-        initialValues,
-        onSubmit: values => {
-            console.log(values)
-        }
-    })
-    
-    const handleOpenDatePicker = () => {
-        setShowDatePicker(true)
-    }
+    const formik = useFormik({ initialValues })
 
-    const handleSelectDate = (event, selectedDate) => {
-        const currentDate = selectedDate || date
-        setDate(currentDate)
-        setShowDatePicker(false)
-    }
+    useFocusEffect(useCallback(() => {
+        formik.resetForm({ values: initialValues });
+    }, []))
 
-    const handleOpenTimePicker = () => {
-        setShowTimePicker(true);
-    }
-
-    const handleSelectTime = (event, selectedTime) => {
-        const currentTime = selectedTime || time
-        setTime(currentTime)
-        setShowTimePicker(false)
-    }
+    useEffect(() => {
+        setAlertForm(formik.values)
+    }, [formik.values])
 
     return (
         <ScrollView style={{ margin: 10 }}>
             <FormControl>
                 <FormControl.Label>Lugar del Incendio</FormControl.Label>
+                <Input value={formik.values.lugar}
+                    onChangeText={formik.handleChange('lugar')}
+                />
                 <Center mt={2} mb={2}>
                     <MapView
                         initialRegion={{
@@ -70,11 +55,13 @@ export const AlertUser = () => {
                         }}
                         style={styles.map} >
                         <Marker
-                            title="Universidad"
-                            description={`Lat: ${origin.latitude} Lng: ${origin.longitude}`}
                             draggable={true}
                             coordinate={origin}
-                            onDragEnd={(e) => setOrigin(e.nativeEvent.coordinate)}
+                            onDragEnd={(e) => {
+                                setOrigin(e.nativeEvent.coordinate)
+                                formik.setFieldValue('latitud', e.nativeEvent.coordinate.latitude.toString())
+                                formik.setFieldValue('longitud', e.nativeEvent.coordinate.longitude.toString())
+                            }}
                         />
                     </MapView>
                 </Center>
@@ -82,44 +69,34 @@ export const AlertUser = () => {
             <HStack space={2} mb={2}>
                 <FormControl flex={1}>
                     <FormControl.Label>Latitud</FormControl.Label>
-                    <Input value={origin.latitude.toString()} isReadOnly />
+                    <Input
+                        value={origin.latitude.toString()}
+                        isReadOnly />
                 </FormControl>
                 <FormControl flex={1}>
                     <FormControl.Label>Longitud</FormControl.Label>
-                    <Input value={origin.longitude.toString()} isReadOnly />
-                </FormControl>
-            </HStack>
-            <HStack space={2} mb={2}>
-                <FormControl flex={1}>
-                    <FormControl.Label>Fecha</FormControl.Label>
-                    <Input value={date.toLocaleDateString()}
-                        onFocus={handleOpenDatePicker} placeholder="2024/01/01" />
-                    {showDatePicker && (
-                        <DateTimePicker
-                            value={date}
-                            mode="date"
-                            onChange={handleSelectDate}
-                        />
-                    )}
-                </FormControl>
-                <FormControl flex={1}>
-                    <FormControl.Label>Hora</FormControl.Label>
                     <Input
-                        value={time.toLocaleTimeString()}
-                        onFocus={handleOpenTimePicker}
-                        placeholder="08:00" />
-                    {showTimePicker && (
-                        <DateTimePicker
-                            value={time}
-                            mode="time"
-                            onChange={handleSelectTime}
-                        />
-                    )}
+                        value={origin.longitude.toString()}
+                        isReadOnly />
                 </FormControl>
             </HStack>
             <FormControl mb={2}>
+                <FormControl.Label>Descripción</FormControl.Label>
+                <TextArea value={formik.values.descripcion}
+                    onChangeText={formik.handleChange('descripcion')} />
+            </FormControl>
+            <FormControl mb={2}>
+                <FormControl.Label>Magnitud</FormControl.Label>
+                <TextArea value={formik.values.magnitud}
+                    onChangeText={formik.handleChange('magnitud')} />
+            </FormControl>
+            <FormControl >
                 <FormControl.Label>Estado</FormControl.Label>
-                <Select>
+                <Select
+                    onValueChange={(value) => {
+                        formik.setFieldValue('estado', value)
+                    }}
+                    selectedValue={formik.values.estado}>
                     <Select.Item label="Activo" value="Activo" />
                     <Select.Item label="Controlado" value="Controlado" />
                     <Select.Item label="Extinto" value="Extinto" />
@@ -128,29 +105,13 @@ export const AlertUser = () => {
                     <Select.Item label="Evacuación" value="Evacuación" />
                 </Select>
             </FormControl>
-            <FormControl>
-                <FormControl.Label>Magnitud</FormControl.Label>
-                <Input />
-            </FormControl>
-
-<<<<<<< HEAD
         </ScrollView>
-=======
-
-import { Text, View } from "react-native"
-
-export const AlertUser = () => {
-    return (
-        <View>
-            <Text>AlertUser</Text>
-        </View>
->>>>>>> 54a62604e8c6f571a170bfb5bddbb4721da8e5ab
     )
 }
 
 const styles = StyleSheet.create({
     map: {
         width: '100%',
-        height: 200,
+        height: 300,
     },
 })
