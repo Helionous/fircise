@@ -1,8 +1,9 @@
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs"
 import { Feather } from '@expo/vector-icons'
-import { HomeGuest } from "../screens/home"
+import { HomeUser } from "../screens/home"
 import { AlertDetail } from "../screens/alerts"
 import { Button, Link } from "native-base"
+import { Login } from "../screens/Login"
 
 const Tab = createBottomTabNavigator()
 
@@ -14,8 +15,8 @@ export const HomeTabsGuest = ({ navigation }) => {
     return (
         <Tab.Navigator>
             <Tab.Screen
-                name="HomeGuestScreen"
-                component={HomeGuest}
+                name="HomeUser"
+                component={HomeUser}
                 options={{
                     title: '',
                     tabBarLabel: 'Inicio',
@@ -32,16 +33,6 @@ export const HomeTabsGuest = ({ navigation }) => {
                             CREAR CUENTA
                         </Link>
                     ),
-                }} />
-            <Tab.Screen
-                name="AlertDetail"
-                component={AlertDetail}
-                options={{
-                    tabBarLabel: 'Detalles',
-                    tabBarIcon: ({ color, size }) => (
-                        <Feather name="user" size={size} color={color} />
-                    ),
-                    title: 'Detalles'
                 }} />
         </Tab.Navigator>
     )

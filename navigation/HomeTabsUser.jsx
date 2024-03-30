@@ -4,11 +4,24 @@ import { Ionicons } from '@expo/vector-icons'
 import { HomeUser } from "../screens/home"
 import { AlertUser } from "../screens/alerts"
 import { ProfileUserReport } from "../screens/users"
-import { Avatar, HStack, IconButton, Input } from "native-base"
+import { Avatar, HStack, IconButton, Text } from "native-base"
+import { auth } from "../config/firebase"
+import { signOut } from "firebase/auth"
+import { useUserStore } from "../store"
 
 const Tab = createBottomTabNavigator()
 
 export const HomeTabsUser = ({ navigation }) => {
+    const userAuth = useUserStore(state => state.userAuth)
+    const signOutLocal = async () => {
+        try {
+            await signOut(auth)
+            console.log('User signed out!')
+        } catch (error) {
+            console.error('Error signing out: ', error)
+        }
+    }
+
     return (
         <Tab.Navigator>
             <Tab.Screen
@@ -20,12 +33,7 @@ export const HomeTabsUser = ({ navigation }) => {
                         <Feather name="home" size={size} color={color} />
                     ),
                     headerLeft: () => (
-                        <Input
-                            ml={5}
-                            placeholder="Buscar"
-                            w={200} variant="rounded"
-                            InputLeftElement={<Feather name="search" style={{ paddingLeft: 10 }} size={24} color="black" />}
-                        />
+                        <Text ml={2}>Bienvenido admin, {userAuth.nombre}!</Text>
                     ),
                     headerRight: () => (
                         <HStack mr={4}>
@@ -65,7 +73,7 @@ export const HomeTabsUser = ({ navigation }) => {
                             variant="ghost"
                             _icon={{
                                 as: Ionicons,
-                                name: "checkmark",
+                                name: "save",
                             }} mr={2} />
                     )
                 }} />
@@ -88,7 +96,7 @@ export const HomeTabsUser = ({ navigation }) => {
                     ),
                     headerRight: () => (
                         <IconButton
-                            onPress={() => navigation.navigate('Login')}
+                            onPress={signOutLocal}
                             variant="ghost"
                             _icon={{
                                 as: Feather,
