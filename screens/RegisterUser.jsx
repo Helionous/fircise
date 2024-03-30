@@ -1,7 +1,45 @@
 import { Button, Center, Input, Link, VStack } from "native-base";
 import { ScrollView, StyleSheet, Text } from "react-native"
+import { useUserStore } from "../store/user";
+import { useFormik } from "formik";
+import { signInWithEmailAndPassword } from "firebase/auth";
+import { auth } from "../config/firebase";
 
 export const RegisterUser = ({ navigation }) => {
+    const registerUser = useUserStore(state => state.registerUser)
+    const setUserAuth = useUserStore(state => state.setUserAuth)
+
+    const formik = useFormik({
+        initialValues: {
+            nombre: "",
+            correo: "",
+            password: ""
+        },
+        onSubmit: values => {
+            console.log(values)
+            registerUser(values.correo, values.password, values.nombre)
+                .then((user) => {
+                    signInWithEmailAndPassword(auth, values.email, values.password)
+                        .then((userCredential) => {
+                            setUserAuth({
+                                userId: userCredential.user.uid,
+                                nombre: values.nombre,
+                                email: values.email,
+                                rol: user.rol,
+                            })
+                            console.log(userCredential)
+                            console.log('Usuario logueado')
+                        })
+                        .catch((error) => {
+                            Alert.alert('Login error', error.message)
+                        })
+                })
+                .catch(error => {
+                    console.log(error)
+                })
+        }
+    })
+
     const navigateToHomeTabsGuest = () => {
         navigation.navigate('HomeTabsUser')
     }
@@ -17,11 +55,21 @@ export const RegisterUser = ({ navigation }) => {
                 <Text style={styles.subTitle}>Crear Cuenta</Text>
             </Center>
             <VStack space={3} pl={5} pr={5}>
-                <Input placeholder="Nombre" />
-                <Input placeholder="Correo Electronico" />
-                <Input placeholder="Contraseña" />
-                <Input placeholder="Confirmar Contraseña" />
-                <Button onPress={navigateToHomeTabsGuest}>Crear Cuenta</Button>
+                <Input
+                    value={formik.values.nombre}
+                    onChangeText={formik.handleChange('nombre')}
+                    placeholder="Nombre" />
+                <Input
+                    value={formik.values.correo}
+                    onChangeText={formik.handleChange('correo')}
+                    placeholder="Correo Electronico" />
+                <Input
+                    value={formik.values.password}
+                    onChangeText={formik.handleChange('password')}
+                    secureTextEntry={true}
+                    placeholder="Contraseña" />
+                {/* <Input placeholder="Confirmar Contraseña" /> */}
+                <Button onPress={formik.handleSubmit}>Crear Cuenta</Button>
                 <Center>
                     <Link onPress={navigateToLoginUser}>
                         Si tienes cuenta, Inicia Sessión

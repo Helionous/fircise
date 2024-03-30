@@ -1,28 +1,53 @@
 import { Box, Center, Heading, Text } from "native-base"
-import { ScrollView } from "react-native"
+import { ScrollView, StyleSheet } from "react-native"
+import MapView, { Marker } from "react-native-maps"
+import { useAlertStore } from "../../store/alert"
 
-export const AlertDetail = () => {
+export const AlertDetail = ({ navigation }) => {
+    const selectedAlert = useAlertStore(state => state.selectedAlert)
+
     return (
         <ScrollView style={{
             marginRight: 10,
             marginLeft: 10,
         }}>
-            <Center mt={20} mb={20}>
-                <Text>Mapa de google</Text>
+            <Center mt={2} mb={2}>
+                <MapView
+                    region={{
+                        latitude: parseFloat(selectedAlert.latitud),
+                        longitude: parseFloat(selectedAlert.longitud),
+                        latitudeDelta: 0.0922,
+                        longitudeDelta: 0.0421,
+                    }}
+                    style={styles.map} >
+                    <Marker
+                        coordinate={{
+                            latitude: parseFloat(selectedAlert.latitud),
+                            longitude: parseFloat(selectedAlert.longitud),
+                        }}
+                    />
+                </MapView>
             </Center>
-            <Text>15-03-2024</Text>
+            <Text>{selectedAlert.fecha}</Text>
             <Box mt={4}>
-                <Heading>Reserva Central Abancay</Heading>
-                <Text fontSize="lg">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quaerat ipsam, dolores assumenda sunt temporibus culpa quis magni accusantium ea tempore cupiditate iusto doloribus corporis officiis non obcaecati? Suscipit, voluptatibus quod.</Text>
+                <Heading>{selectedAlert.lugar}</Heading>
+                <Text fontSize="lg">{selectedAlert.descripcion}</Text>
             </Box>
             <Box mt={4}>
                 <Heading>Magnitud</Heading>
-                <Text fontSize="lg">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quaerat ipsam, dolores assumenda sunt temporibus culpa quis magni accusantium ea tempore cupiditate iusto doloribus corporis officiis non obcaecati? Suscipit, voluptatibus quod.</Text>
+                <Text fontSize="lg">{selectedAlert.magnitud}</Text>
             </Box>
             <Box mt={4}>
-                <Heading>Magnitud</Heading>
-                <Text fontSize="lg">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quaerat ipsam, dolores assumenda sunt temporibus culpa quis magni accusantium ea tempore cupiditate iusto doloribus corporis officiis non obcaecati? Suscipit, voluptatibus quod.</Text>
+                <Heading>Estado</Heading>
+                <Text fontSize="lg">{selectedAlert.estado}</Text>
             </Box>
         </ScrollView>
     )
 }
+
+const styles = StyleSheet.create({
+    map: {
+        width: '100%',
+        height: 200,
+    },
+})
