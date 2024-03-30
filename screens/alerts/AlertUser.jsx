@@ -92,26 +92,6 @@ export const AlertUser = () => {
                     onChangeText={formik.handleChange('magnitud')} />
             </FormControl>
             <FormControl mb={2}>
-                <FormControl.Label>Descripción</FormControl.Label>
-                <TextArea value={formik.values.descripcion}
-                    onChangeText={formik.handleChange('descripcion')} />
-            </FormControl>
-            <FormControl mb={2}>
-                <FormControl.Label>Magnitud</FormControl.Label>
-                <TextArea value={formik.values.magnitud}
-                    onChangeText={formik.handleChange('magnitud')} />
-            </FormControl>
-            <FormControl mb={2}>
-                <FormControl.Label>Descripción</FormControl.Label>
-                <TextArea value={formik.values.descripcion}
-                    onChangeText={formik.handleChange('descripcion')} />
-            </FormControl>
-            <FormControl mb={2}>
-                <FormControl.Label>Magnitud</FormControl.Label>
-                <TextArea value={formik.values.magnitud}
-                    onChangeText={formik.handleChange('magnitud')} />
-            </FormControl>
-            <FormControl >
                 <FormControl.Label>Estado</FormControl.Label>
                 <Select
                     onValueChange={(value) => {

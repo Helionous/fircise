@@ -1,4 +1,3 @@
-
 import { create } from 'zustand'
 import { database } from '../config/firebase'
 import { addDoc, collection, getDocs, query, where, doc, updateDoc } from '@firebase/firestore'
