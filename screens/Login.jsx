@@ -15,6 +15,47 @@ export const Login = ({ navigation }) => {
         navigation.navigate('HomeTabsAdmin')
     }
 
+
+import { Text, View, StyleSheet, Alert } from "react-native"
+import { Input, Button, Link, Center, VStack } from "native-base"
+import { useFormik } from "formik"
+import { signInWithEmailAndPassword } from "firebase/auth"
+import { auth } from "../config/firebase"
+
+export const Login = ({ navigation }) => {
+    const formik = useFormik({
+        initialValues: {
+            email: "",
+            password: "",
+        },
+        onSubmit: (values) => {
+            signInWithEmailAndPassword(auth, values.email, values.password)
+                .then((userCredential) => {
+                    console.log(userCredential)
+                    console.log('Usuario logueado')
+                })
+                .catch((error) => {
+                    Alert.alert('Login error', error.message)
+                })
+        },
+    })
+
+    const navigateToHomeTabsGuest = () => {
+        navigation.navigate('HomeTabsGuest')
+    }
+
+    const navigateToRegisterUser = () => {
+        navigation.navigate('RegisterUser')
+    }
+
+    const navigateToHome = () => {
+        navigation.navigate('HomeTabsAdmin')
+    }
+
+    const navigateToRegisterUser = () => {
+        navigation.navigate('RegisterUser')
+    }
+
     return (
         <View>
             <Center style={styles.header}>
@@ -25,6 +66,19 @@ export const Login = ({ navigation }) => {
                 <Input placeholder="Correo Electronico" />
                 <Input placeholder="********" />
                 <Button onPress={navigateToHome}>Iniciar Sessión</Button>
+
+            <VStack mx={3} space={3}>
+                <Input
+                    placeholder="Correo Electronico"
+                    onChangeText={formik.handleChange("email")}
+                    value={formik.values.email}
+                />
+                <Input
+                    placeholder="********"
+                    onChangeText={formik.handleChange("password")}
+                    value={formik.values.password}
+                />
+                <Button onPress={formik.handleSubmit}>Iniciar Sessión</Button>
                 <Center>
                     <Link onPress={navigateToRegisterUser}>
                         No tiene cuenta Registrese
@@ -36,8 +90,9 @@ export const Login = ({ navigation }) => {
                     </Link>
                 </Center>
             </VStack>
+
         </View>
-    )
+    );
 }
 
 const styles = StyleSheet.create({
@@ -55,3 +110,4 @@ const styles = StyleSheet.create({
         marginBottom: 10,
     },
 })
+
