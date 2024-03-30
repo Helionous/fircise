@@ -10,6 +10,7 @@ export const Login = ({ navigation }) => {
     const setUserAuth = useUserStore(state => state.setUserAuth)
     const getUserById = useUserStore(state => state.getUserById)
 
+
     const formik = useFormik({
         initialValues: {
             email: "",
@@ -28,6 +29,14 @@ export const Login = ({ navigation }) => {
                     if (user.rol === 'admin') {
                         navigateToHome()
                     }
+                .then((userCredential) => {
+                    setUserAuth({
+                        userId: userCredential.user.uid,
+                        email: values.email,
+                        rol: 'user',
+                    })
+                    console.log(userCredential)
+                    console.log('Usuario logueado')
                 })
                 .catch((error) => {
                     Alert.alert('Login error', error.message)

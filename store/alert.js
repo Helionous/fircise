@@ -1,6 +1,8 @@
 import { create } from 'zustand'
 import { database } from '../config/firebase'
 import { addDoc, collection, getDocs, query, where, doc, updateDoc } from '@firebase/firestore'
+import { addDoc, collection, getDocs, query, where } from '@firebase/firestore'
+
 
 // Crea el store de Zustand
 export const useAlertStore = create((set) => ({
@@ -15,7 +17,6 @@ export const useAlertStore = create((set) => ({
     setSelectedAlert: (alert) => {
         set({ selectedAlert: alert })
     },
-    fetchAlerts: async (published = true) => {
         try {
             const q = query(collection(database, 'alerts'), where('published', '==', published))
             const querySnapshot = await getDocs(q)
@@ -47,8 +48,16 @@ export const useAlertStore = create((set) => ({
             set((state) => ({
                 alerts: [...state.alerts, { id: docRef.id, ...alertData }],
             }))
+    fetchAlerts: async () => {
+        try {
+            const querySnapshot = await getDocs(collection(database, 'alerts'))
+            const alerts = []
+            querySnapshot.forEach((doc) => {
+                alerts.push({ id: doc.id, ...doc.data() })
+            })
+            set({ alerts })
         } catch (error) {
-            console.error('Error al crear el alerta:', error)
+            console.error('Error al obtener las alertas:', error)
         }
     },
     validateAlert: async (alertId) => {
@@ -59,6 +68,7 @@ export const useAlertStore = create((set) => ({
         } catch (error) {
             console.error('Error validating alert:', error);
             return { status: 'error', message: 'Error validating alert.' };
+
         }
     }
 }))

@@ -7,13 +7,17 @@ import { ProfileUserReport } from "../screens/users"
 import { Avatar, HStack, IconButton, Text } from "native-base"
 import { auth } from "../config/firebase"
 import { signOut } from "firebase/auth"
+
 import { useUserStore } from "../store"
+
 
 const Tab = createBottomTabNavigator()
 
 export const HomeTabsUser = ({ navigation }) => {
+
     const userAuth = useUserStore(state => state.userAuth)
     const setDefaultUserAuth = useUserStore(state => state.setDefaultUserAuth)
+
 
     const signOutLocal = async () => {
         try {
@@ -100,6 +104,7 @@ export const HomeTabsUser = ({ navigation }) => {
                     headerRight: () => (
                         <IconButton
                             onPress={() => navigation.navigate('Logout')}
+                            onPress={signOutLocal}
                             variant="ghost"
                             _icon={{
                                 as: Feather,

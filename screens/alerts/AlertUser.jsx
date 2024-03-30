@@ -1,4 +1,5 @@
 import { Center, FormControl, HStack, Input, ScrollView, Select, TextArea } from "native-base"
+
 import { useEffect, useState } from "react"
 import { StyleSheet } from "react-native"
 import MapView, { Marker } from "react-native-maps"
@@ -15,6 +16,7 @@ export const AlertUser = () => {
 
     const setAlertForm = useAlertStore(state => state.setAlertForm)
     const date = new Date()
+
 
     const initialValues = {
         lugar: "",
@@ -37,6 +39,46 @@ export const AlertUser = () => {
     useEffect(() => {
         setAlertForm(formik.values)
     }, [formik.values])
+        descripcion: "",
+        magnitud: "",
+        estado: ""
+    }
+
+    const formik = useFormik({ initialValues })
+
+    useFocusEffect(useCallback(() => {
+        formik.resetForm({ values: initialValues });
+    }, []))
+
+    useEffect(() => {
+        setAlertForm(formik.values)
+    }, [formik.values])
+
+    const handleOpenDatePicker = () => {
+        setShowDatePicker(true)
+    }
+
+    const handleSelectDate = (event, selectedDate) => {
+        if (selectedDate) {
+            const currentDate = selectedDate || date
+            formik.setFieldValue('fecha', currentDate.toLocaleDateString())
+            setShowDatePicker(false)
+            setDate(currentDate)
+        }
+    }
+
+    const handleOpenTimePicker = () => {
+        setShowTimePicker(true)
+    }
+
+    const handleSelectTime = (event, selectedTime) => {
+        if (selectedTime) {
+            const currentTime = selectedTime || time
+            formik.setFieldValue('hora', currentTime.toLocaleTimeString())
+            setShowTimePicker(false)
+            setTime(currentTime)
+        }
+    }
 
     return (
         <ScrollView style={{ margin: 10 }}>
@@ -78,6 +120,7 @@ export const AlertUser = () => {
                     <Input
                         value={origin.longitude.toString()}
                         isReadOnly />
+
                 </FormControl>
             </HStack>
             <FormControl mb={2}>

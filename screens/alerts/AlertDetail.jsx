@@ -14,6 +14,7 @@ export const AlertDetail = () => {
         Alert.alert(status.message)
     }
 
+
     return (
         <ScrollView style={{
             marginRight: 10,

@@ -5,11 +5,13 @@ import { useAlertStore } from "../../store/alert"
 import { useFocusEffect } from "@react-navigation/core"
 import { useUserStore } from "../../store"
 
+
 export const HomeUser = ({ navigation }) => {
     const alerts = useAlertStore(state => state.alerts)
     const fetchAlerts = useAlertStore(state => state.fetchAlerts)
     const setSelectedAlert = useAlertStore(state => state.setSelectedAlert)
     const userAuth = useUserStore(state => state.userAuth)
+
 
     const [origin, setOrigin] = useState({
         latitude: -13.617373,
@@ -20,6 +22,7 @@ export const HomeUser = ({ navigation }) => {
         fetchAlerts()
         console.log('auth user:', userAuth)
     }, []))
+
 
     navigateToAlertDetail = (alert) => {
         setSelectedAlert(alert)
@@ -40,6 +43,7 @@ export const HomeUser = ({ navigation }) => {
                     alerts.map(alert => (
                         <Marker
                             key={alert.id}
+
                             coordinate={{
                                 latitude: parseFloat(alert.latitud),
                                 longitude: parseFloat(alert.longitud),

@@ -5,15 +5,22 @@ import { useCallback } from "react"
 import { useFocusEffect } from "@react-navigation/core"
 import { TouchableOpacity } from "react-native"
 import { useUserStore } from "../../store/user"
+import { AuthenticatedUserContext } from "../../navigation/Navigation"
+import { useCallback, useContext } from "react"
+import { useFocusEffect } from "@react-navigation/core"
+import { TouchableOpacity } from "react-native"
 
 export const ProfileUserReport = ({ navigation }) => {
     const userAlerts = useAlertStore(state => state.userAlerts)
     const getUserAlerts = useAlertStore(state => state.getUserAlerts)
-    const userAuth = useUserStore(state => state.userAuth)
 
     useFocusEffect(useCallback(() => {
         getUserAlerts(userAuth.userId)
         console.log('userAuth', userAuth)
+    const { user } = useContext(AuthenticatedUserContext)
+
+    useFocusEffect(useCallback(() => {
+        getUserAlerts(user.uid)
     }, []))
 
     navigateToAlertDetail = () => {
@@ -40,6 +47,7 @@ export const ProfileUserReport = ({ navigation }) => {
                 {
                     userAlerts.map(alert => (
                         <TouchableOpacity key={alert.id} onPress={navigateToAlertDetail}>
+                        <TouchableOpacity onPress={navigateToAlertDetail}>
                             <Box rounded="lg"
                                 overflow="hidden"
                                 borderColor="coolGray.200"
