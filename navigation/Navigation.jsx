@@ -14,6 +14,8 @@ import { AdminUsersUpdate, Logout, ProfileUserReport } from "../screens/users"
 import { auth } from "../config/firebase"
 import { useUserStore } from "../store/user"
 import { AuthenticatedUserContext } from "../context"
+import { AlertaAdminGenerar } from "../screens/alerts/AlertaAdminGenerar"
+import { AlertasAdminEnviada } from "../screens/alerts/AlertasAdminEnviada"
 
 const Stack = createStackNavigator()
 
@@ -92,6 +94,12 @@ function AdminStack() {
             <Stack.Screen
                 name="Logout"
                 component={Logout} />
+            <Stack.Screen
+                name="AlertaAdminGenerar"
+                component={AlertaAdminGenerar} />
+            <Stack.Screen
+                name="AlertasAdminEnviada"
+                component={AlertasAdminEnviada} />
             <Stack.Screen
                 name="ProfileUserReport"
                 component={ProfileUserReport}

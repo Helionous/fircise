@@ -1,13 +1,10 @@
 import { Button, Center, Input, Link, VStack } from "native-base";
-import { ScrollView, StyleSheet, Text } from "react-native"
+import { Alert, ScrollView, StyleSheet, Text } from "react-native"
 import { useUserStore } from "../store/user";
 import { useFormik } from "formik";
-import { signInWithEmailAndPassword } from "firebase/auth";
-import { auth } from "../config/firebase";
 
 export const RegisterUser = ({ navigation }) => {
     const registerUser = useUserStore(state => state.registerUser)
-    const setUserAuth = useUserStore(state => state.setUserAuth)
 
     const formik = useFormik({
         initialValues: {
@@ -16,23 +13,9 @@ export const RegisterUser = ({ navigation }) => {
             password: ""
         },
         onSubmit: values => {
-            console.log(values)
             registerUser(values.correo, values.password, values.nombre)
                 .then((user) => {
-                    signInWithEmailAndPassword(auth, values.email, values.password)
-                        .then((userCredential) => {
-                            setUserAuth({
-                                userId: userCredential.user.uid,
-                                nombre: values.nombre,
-                                email: values.email,
-                                rol: user.rol,
-                            })
-                            console.log(userCredential)
-                            console.log('Usuario logueado')
-                        })
-                        .catch((error) => {
-                            Alert.alert('Login error', error.message)
-                        })
+                    Alert.alert('Registro exitoso', 'Usuario registrado correctamente')
                 })
                 .catch(error => {
                     console.log(error)
@@ -41,7 +24,7 @@ export const RegisterUser = ({ navigation }) => {
     })
 
     const navigateToLoginUser = () => {
-        navigation.navigate('Login')
+        navigation.goBack()
     }
 
     return (

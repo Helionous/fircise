@@ -1,5 +1,5 @@
 import { Box, HStack, Heading, Text, VStack } from "native-base"
-import { ScrollView, TouchableOpacity, View } from "react-native"
+import { TouchableOpacity, View } from "react-native"
 import { Entypo } from "@expo/vector-icons"
 import { useAlertStore } from "../../store"
 import { useFocusEffect } from "@react-navigation/native"
@@ -20,7 +20,7 @@ export const AdminAlertList = ({ navigation }) => {
     }
 
     return (
-        <ScrollView style={{ paddingTop: 10 }}>
+        <View style={{ paddingTop: 10 }}>
             <VStack space={3} ml={5} mr={5}>
                 {
                     alerts && alerts.map(alert => (
@@ -45,6 +45,6 @@ export const AdminAlertList = ({ navigation }) => {
                     ))
                 }
             </VStack>
-        </ScrollView>
+        </View>
     )
 }

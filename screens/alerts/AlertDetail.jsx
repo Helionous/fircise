@@ -1,12 +1,13 @@
-import { Box, Button, Center, Heading, Text } from "native-base"
+import { Box, Button, Center, HStack, Heading, Text } from "native-base"
 import { Alert, ScrollView, StyleSheet } from "react-native"
 import MapView, { Marker, PROVIDER_GOOGLE } from "react-native-maps"
-import { useAlertStore } from "../../store"
+import { useAlertStore, useUserStore } from "../../store"
 
-export const AlertDetail = () => {
+export const AlertDetail = ({ navigation }) => {
     const selectedAlert = useAlertStore(state => state.selectedAlert)
     const validateAlert = useAlertStore(state => state.validateAlert)
     const setSelectedAlert = useAlertStore(state => state.setSelectedAlert)
+    const userAuth = useUserStore(state => state.userAuth)
 
     const handleValidateAlert = async () => {
         const status = await validateAlert(selectedAlert.id)
@@ -21,7 +22,7 @@ export const AlertDetail = () => {
         }}>
             <Center mt={2} mb={2}>
                 <MapView
-                provider={PROVIDER_GOOGLE}
+                    provider={PROVIDER_GOOGLE}
                     region={{
                         latitude: parseFloat(selectedAlert.latitud),
                         longitude: parseFloat(selectedAlert.longitud),
@@ -50,12 +51,17 @@ export const AlertDetail = () => {
                 <Heading>Estado</Heading>
                 <Text fontSize="lg">{selectedAlert.estado}</Text>
             </Box>
-            {
-                selectedAlert.published === false &&
-                <Box mt={2}>
+            <HStack space={3} mt={2}>
+                {
+                    selectedAlert.published === false &&
                     <Button onPress={() => handleValidateAlert(selectedAlert)}>Validar</Button>
-                </Box>
-            }
+                }
+                {
+                    userAuth && userAuth.rol === 'admin' &&
+                    <Button colorScheme="secondary"
+                        onPress={() => navigation.navigate('AlertaAdminGenerar')}>Generar Alerta</Button>
+                }
+            </HStack>
         </ScrollView>
     )
 }

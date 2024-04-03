@@ -2,14 +2,15 @@ import { create } from "zustand"
 import { auth, database } from "../config/firebase"
 import { createUserWithEmailAndPassword } from "firebase/auth"
 import { addDoc, collection, doc, getDocs, limit, query, updateDoc, where } from "firebase/firestore"
+import * as Notifications from "expo-notifications"
 
 export const useUserStore = create((set) => ({
     users: [],
     userAuth: {
         userId: '-',
         nombre: 'invitado',
-        email: '-',
         rol: 'guest',
+        token: ''
     },
     selectedUser: {
         userId: '-',
@@ -43,11 +44,21 @@ export const useUserStore = create((set) => ({
                 users.push({ id: doc.id, ...doc.data() })
             })
             set({ users })
+            return users
         } catch (error) {
             console.error('Error al obtener las alertas:', error)
         }
     },
     registerUser: async (email, password, nombre) => {
+        const { status } = await Notifications.getPermissionsAsync()
+        if (status !== 'granted') {
+            const { status } = await Notifications.requestPermissionsAsync()
+            if (status !== 'granted') return
+        }
+
+        const token = (await Notifications.getExpoPushTokenAsync({ projectId: "997ad5f3-b2fa-45e9-8d83-16c0ceef8968" })).data
+        console.log('token:', token)
+
         try {
             const userCredential = await createUserWithEmailAndPassword(auth, email, password)
             const user = userCredential.user
@@ -55,6 +66,7 @@ export const useUserStore = create((set) => ({
                 userId: user.uid,
                 nombre: nombre || '',
                 rol: 'user',
+                token
             }
             await addDoc(collection(database, 'users'), userData)
             return userData

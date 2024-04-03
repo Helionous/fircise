@@ -23,6 +23,7 @@ export default {
                 "backgroundColor": "#ffffff"
             },
             "package": "com.sysmagnus.fircise",
+            "googleServicesFile": "./google-services.json",
             "config": {
                 "googleMaps": {
                     "apiKey": "AIzaSyDcw997w6Shk2BCHZrXXowj1ITFc7S1lnI"

@@ -58,7 +58,7 @@ export const HomeTabsUser = ({ navigation }) => {
                         </View>
                     ),
                     headerLeft: () => (
-                        <Text ml={2}>Bienvenido admin, {userAuth.nombre}!</Text>
+                        <Text ml={2}>Bienvenido, {userAuth.nombre}!</Text>
                     ),
                     headerRight: () => (
                         <HStack mr={4}>

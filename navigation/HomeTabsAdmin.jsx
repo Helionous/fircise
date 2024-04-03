@@ -63,7 +63,7 @@ export const HomeTabsAdmin = ({ navigation }) => {
                         </View>
                     ),
                     headerLeft: () => (
-                        <Text>Bienvenido admin, {userAuth.nombre}!</Text>
+                        <Text>Bienvenido, {userAuth.nombre}!</Text>
                     ),
                     headerRight: () => (
                         <HStack mr={4}>
