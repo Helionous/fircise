@@ -56,7 +56,7 @@ export const useUserStore = create((set) => ({
             if (status !== 'granted') return
         }
 
-        const token = (await Notifications.getExpoPushTokenAsync({ projectId: "997ad5f3-b2fa-45e9-8d83-16c0ceef8968" })).data
+        const token = (await Notifications.getExpoPushTokenAsync({ projectId: "aa30b37a-c8d0-47a1-9df4-6cdd8d488fb1" })).data
         console.log('token:', token)
 
         try {
