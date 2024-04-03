@@ -25,7 +25,7 @@ export default {
             "package": "com.sysmagnus.fircise",
             "config": {
                 "googleMaps": {
-                    "apiKey": "AIzaSyDuk94MlwK88g1v-rW6QXDbMjJlGBMkB6o"
+                    "apiKey": "AIzaSyDcw997w6Shk2BCHZrXXowj1ITFc7S1lnI"
                 }
             }
         },
