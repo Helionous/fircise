@@ -34,6 +34,9 @@ export default {
             "favicon": "./assets/favicon.png"
         },
         "extra": {
+            "eas": {
+                "projectId": "aa30b37a-c8d0-47a1-9df4-6cdd8d488fb1"
+            }
         }
     }
 }

@@ -1,13 +1,13 @@
 {
   "project_info": {
-    "project_number": "303133651459",
-    "project_id": "fircise",
-    "storage_bucket": "fircise.appspot.com"
+    "project_number": "524126208137",
+    "project_id": "fircise-1a6aa",
+    "storage_bucket": "fircise-1a6aa.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:303133651459:android:cae21d3103ce60bfc75436",
+        "mobilesdk_app_id": "1:524126208137:android:9eab629c1c1023f2988658",
         "android_client_info": {
           "package_name": "com.sysmagnus.fircise"
         }
@@ -15,7 +15,7 @@
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyDwjZO81OTixCBaGVpRr98kLQE3GMv_ywo"
+          "current_key": "AIzaSyA5AKTQn8gC59H6r0KdHqYGudpa4ymHsUA"
         }
       ],
       "services": {
