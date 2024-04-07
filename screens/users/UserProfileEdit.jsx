@@ -15,7 +15,7 @@ export const UserProfileEdit = ({ navigation }) => {
                     source={{
                         uri: "https://avatars.githubusercontent.com/u/111304665?v=4"
                     }} />
-                <Text fontSize="xl" fontWeight="bold">@Henry</Text>
+                <Text fontSize="xl" fontWeight="bold">{userAuth.nombre}</Text>
                 <HStack space={3} mt={2} mb={2}>
                     <Button bg="secondary.700" onPress={() => navigation.navigate('ProfileUserReport')}>Mis Reportes</Button>
                     <Button bg="muted.500" onPress={() => console.log("hello world")}>Información</Button>

@@ -101,9 +101,6 @@ export const AlertUser = () => {
                     <Select.Item label="Activo" value="Activo" />
                     <Select.Item label="Controlado" value="Controlado" />
                     <Select.Item label="Extinto" value="Extinto" />
-                    <Select.Item label="En progreso" value="En progreso" />
-                    <Select.Item label="Advertencia" value="Advertencia" />
-                    <Select.Item label="Evacuación" value="Evacuación" />
                 </Select>
             </FormControl>
         </ScrollView>

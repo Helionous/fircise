@@ -51,15 +51,22 @@ export const AlertDetail = ({ navigation }) => {
                 <Heading>Estado</Heading>
                 <Text fontSize="lg">{selectedAlert.estado}</Text>
             </Box>
-            <HStack space={3} mt={2}>
+            <HStack space={6} mt={9}>
                 {
                     selectedAlert.published === false &&
-                    <Button onPress={() => handleValidateAlert(selectedAlert)}>Validar</Button>
+                    <Button onPress={() => handleValidateAlert(selectedAlert)}>Validar Alerta</Button>
                 }
                 {
-                    userAuth && userAuth.rol === 'admin' &&
+                    selectedAlert.published === true && userAuth && userAuth.rol === 'admin' &&
                     <Button colorScheme="secondary"
-                        onPress={() => navigation.navigate('AlertaAdminGenerar')}>Generar Alerta</Button>
+                        onPress={() => navigation.navigate('AlertaAdminGenerar')}>Generar Alerta
+                    </Button>
+                }
+                {
+                    selectedAlert.published === true && userAuth && userAuth.rol === 'admin' &&
+                    <Button colorScheme="primary"
+                        onPress={() => navigation.navigate('EditAlert')}>Actualizar datos
+                    </Button>
                 }
             </HStack>
         </ScrollView>

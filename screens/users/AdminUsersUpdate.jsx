@@ -47,25 +47,33 @@ export const AdminUsersUpdate = ({ navigation }) => {
             </Center>
             <VStack space={3} ml={5} mr={5}>
                 <Box>
+                    <Text fontWeight="bold">Rol</Text>
+                    <Text>{selectedUser.rol}</Text>
+                </Box>
+                <Box>
                     <Text fontWeight="bold">Nombres</Text>
                     <Text>{selectedUser.nombre}</Text>
                 </Box>
                 <Box>
                     <Text fontWeight="bold">Correo</Text>
-                    <Text>test@gmail.com</Text>
+                    <Text>{selectedUser.userId}</Text>
                 </Box>
                 <Box>
                     <Text fontWeight="bold">Institución</Text>
                     <Text>Intituto Nacional de Defensa Civil</Text>
                 </Box>
+
                 <Box>
                     <Text fontWeight="bold">Permisos</Text>
                     <Radio.Group value={formik.values.rol} onChange={formik.handleChange('rol')}>
                         <Radio shadow={2} value="admin" my="2">
                             Administrador
                         </Radio>
-                        <Radio shadow={2} value="user" my="2">
+                        <Radio shadow={2} value="privileged" my="2">
                             Usuario Privilegiado
+                        </Radio>
+                        <Radio shadow={2} value="user" my="2">
+                            Usuario
                         </Radio>
                     </Radio.Group>
                 </Box>
